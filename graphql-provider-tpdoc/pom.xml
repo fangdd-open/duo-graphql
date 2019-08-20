@@ -6,8 +6,8 @@
 
     <parent>
         <groupId>com.fangdd.graphql</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <artifactId>graphql-parent</artifactId>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>graphql-provider-tpdoc</artifactId>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-provider-remote</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>${duo-graphql.version}</version>
         </dependency>
 
         <dependency>

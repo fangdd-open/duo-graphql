@@ -6,12 +6,11 @@
 
     <parent>
         <groupId>com.fangdd.graphql</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <artifactId>graphql-parent</artifactId>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>graphql-register-zk</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
     <description>房多多GraphQL注册中心-zookeeper实现-服务端实现</description>
 
     <dependencies>
@@ -19,14 +18,14 @@
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-register</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>${duo-graphql.version}</version>
         </dependency>
 
         <!-- GraphQL Provider -->
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-provider-remote</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>${duo-graphql.version}</version>
         </dependency>
 
         <dependency>

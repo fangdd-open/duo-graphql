@@ -6,12 +6,11 @@
 
     <parent>
         <groupId>com.fangdd.graphql</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <artifactId>graphql-parent</artifactId>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>graphql-provider</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
     <description>房多多GraphQL 原生数据供应者--TODO</description>
 
     <dependencies>
@@ -19,7 +18,7 @@
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-provider-remote</artifactId>
-            <version>1.0.2-SNAPSHOT</version>
+            <version>${duo-graphql.version}</version>
         </dependency>
 
         <dependency>
