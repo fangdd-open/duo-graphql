@@ -33,7 +33,6 @@
         <module>graphql-provider-remote</module>
         <module>graphql-provider-tpdoc</module>
         <module>graphql-provider-inner</module>
-        <module>graphql-provider-inner-region</module>
         <module>graphql-provider-tpdoc-base-rest</module>
         <module>graphql-monitor</module>
     </modules>
