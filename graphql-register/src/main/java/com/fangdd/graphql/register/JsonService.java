@@ -1,4 +1,4 @@
-package com.fangdd.graphql.service;
+package com.fangdd.graphql.register;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

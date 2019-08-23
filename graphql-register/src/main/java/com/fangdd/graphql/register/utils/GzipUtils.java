@@ -10,7 +10,7 @@ import java.util.zip.GZIPOutputStream;
 /**
  * GZIP压缩
  *
- * @author ycoe
+ * @author xuwenzhen
  * @date 18/1/2
  */
 public class GzipUtils {

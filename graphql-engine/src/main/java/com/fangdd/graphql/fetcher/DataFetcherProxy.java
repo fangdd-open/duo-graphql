@@ -14,8 +14,8 @@ import com.fangdd.graphql.provider.ValueUtils;
 import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
 import com.fangdd.graphql.provider.dto.provider.EntityRef;
+import com.fangdd.graphql.register.JsonService;
 import com.fangdd.graphql.service.DirectiveService;
-import com.fangdd.graphql.service.JsonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
@@ -296,7 +296,7 @@ public class DataFetcherProxy extends BaseDataFetcher {
         } catch (IOException e) {
             throw new GraphqlInvocationException("调用失败：" + e.getMessage() + "," + request.toString(), e);
         } finally {
-            logger.info("{}, 耗时：{}", urlBuilder, System.currentTimeMillis() - t1);
+            logger.info("{}, 耗时 {}", urlBuilder, System.currentTimeMillis() - t1);
         }
     }
 

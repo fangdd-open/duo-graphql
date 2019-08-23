@@ -53,6 +53,9 @@ public class GraphqlInvocationConfigure {
     @Autowired
     private GraphqlProviderConfigure graphqlProviderConfigure;
 
+    @Autowired
+    private UserExecutionContextFactory userExecutionContextFactory;
+
     /**
      * 当前引擎保存的图
      */
@@ -81,7 +84,7 @@ public class GraphqlInvocationConfigure {
 
     @Bean
     @Primary
-    public GraphQLInvocation getGraphQLInvocation(UserExecutionContextFactory userExecutionContextFactory) {
+    public GraphQLInvocation getGraphQLInvocation() {
         return (invocationData, webRequest) -> {
             long t1 = System.currentTimeMillis();
             UserExecutionContext context = userExecutionContextFactory.get(invocationData, webRequest);
@@ -96,7 +99,7 @@ public class GraphqlInvocationConfigure {
             if (executionMonitor != null) {
                 executionMonitor.beforeInvocation(executionInput, webRequest);
             }
-            GraphQL graphQL = graphQLMap.get(GraphqlConsts.STR_DEFAULT);
+            GraphQL graphQL = graphQLMap.get(context.getSchemaName());
             CompletableFuture<ExecutionResult> executionResultCompletableFuture = graphQL.executeAsync(executionInput);
             executionResultCompletableFuture.thenRun(() -> {
                 String operationName = GraphqlConsts.QUERY.toLowerCase();
@@ -109,7 +112,7 @@ public class GraphqlInvocationConfigure {
                 } catch (JsonProcessingException e) {
                     logger.error("发生错误！", e);
                 }
-                logger.info("graphql[{}]查询耗时：{} gql:{}", operationName, System.currentTimeMillis() - t1, requestData);
+                logger.info("graphql[{}]查询耗时 {} gql:{}", operationName, System.currentTimeMillis() - t1, requestData);
                 if (executionMonitor != null) {
                     executionMonitor.afterInvocation(context, invocationData, webRequest);
                 }

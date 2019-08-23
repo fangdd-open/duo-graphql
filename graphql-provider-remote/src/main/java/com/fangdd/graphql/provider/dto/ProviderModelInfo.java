@@ -8,7 +8,7 @@ import java.util.Set;
  * @author xuwenzhen
  * @date 2019/5/12
  */
-public class ProvidModelInfo {
+public class ProviderModelInfo {
     /**
      * 基础视图名称
      *

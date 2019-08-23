@@ -53,7 +53,7 @@ public class PipelineManager {
             }
             long t = System.currentTimeMillis();
             pipeline.doPipeline(registryState);
-            logger.info("{}耗时{}ms", pipeline.getClass().getSimpleName(), System.currentTimeMillis() - t);
+            logger.info("{}耗时 {}", pipeline.getClass().getSimpleName(), System.currentTimeMillis() - t);
         }
         return registryState;
     }

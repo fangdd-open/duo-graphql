@@ -25,14 +25,6 @@ public class TpDocGraphqlProviderServiceInfo {
     private String vcsId;
 
     /**
-     * Schema中的组名
-     *
-     * @demo xf
-     * @deprecated 请使用 moduleName，本字段将在未来版本里删除！
-     */
-    private String group;
-
-    /**
      * Schema中的领域名称
      *
      * @demo xf
@@ -49,7 +41,7 @@ public class TpDocGraphqlProviderServiceInfo {
     /**
      * Provider提供的基础视图信息
      */
-    private List<ProvidModelInfo> models;
+    private List<ProviderModelInfo> models;
 
     /**
      * 如果本服务还提供了默认领域外的接口时配置
@@ -87,34 +79,19 @@ public class TpDocGraphqlProviderServiceInfo {
         this.server = server;
     }
 
-    public void setGroup(String group) {
-        this.moduleName = group;
-    }
-
-    /**
-     * @return 领域名称
-     * @deprecated 请使用 getModuleName
-     */
-    public String getGroup() {
-        return moduleName;
-    }
-
     public String getModuleName() {
-        if (moduleName != null) {
-            return moduleName;
-        }
-        return group;
+        return moduleName;
     }
 
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
 
-    public List<ProvidModelInfo> getModels() {
+    public List<ProviderModelInfo> getModels() {
         return models;
     }
 
-    public void setModels(List<ProvidModelInfo> models) {
+    public void setModels(List<ProviderModelInfo> models) {
         this.models = models;
     }
 
@@ -145,14 +122,13 @@ public class TpDocGraphqlProviderServiceInfo {
         sb
                 .append("{\"appId\":").append(appId == null ? "null" : "\"" + appId + "\"")
                 .append(",\"vcsId\":").append(vcsId == null ? "null" : "\"" + vcsId + "\"")
-                .append(",\"group\":").append(moduleName == null ? "null" : "\"" + moduleName + "\"")
                 .append(",\"moduleName\":").append(moduleName == null ? "null" : "\"" + moduleName + "\"")
                 .append(",\"server\":").append(server == null ? "null" : "\"" + server + "\"")
                 .append(",\"schemaName\":").append(schemaName == null ? "null" : "\"" + schemaName + "\"")
                 .append(",\"models\":[");
         if (models != null && !models.isEmpty()) {
             for (int i = 0; i < models.size(); i++) {
-                ProvidModelInfo model = models.get(i);
+                ProviderModelInfo model = models.get(i);
                 sb.append(model.toString());
                 if (i < models.size() - 1) {
                     sb.append(",");

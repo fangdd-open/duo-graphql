@@ -1,17 +1,20 @@
 package com.fangdd.graphql.service.impl;
 
+import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.exception.OkHttpInvocationException;
 import com.fangdd.graphql.core.util.OkHttpUtils;
-import com.fangdd.graphql.pipeline.impl.ApiDataLoadPipeline;
 import com.fangdd.graphql.provider.dto.provider.ProviderApiDto;
+import com.fangdd.graphql.register.JsonService;
+import com.fangdd.graphql.register.config.GraphqlRegisterConfigure;
 import com.fangdd.graphql.register.config.GraphqlServerConfigure;
 import com.fangdd.graphql.register.utils.GzipUtils;
 import com.fangdd.graphql.service.TpdocService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -24,19 +27,21 @@ import java.io.IOException;
 @Service
 public class TpdocServiceImpl implements TpdocService {
     private static final Logger logger = LoggerFactory.getLogger(TpdocServiceImpl.class);
-    private static final String VCS_ID = "vcsId";
-    private static final String DOMAIN = "domain";
-    private static final String API_CODES = "apiCodes";
-    private static final int MIN_PROVIDER_API_INFO_LEN = 10;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private OkHttpClient okHttpClient;
 
     @Autowired
+    private JsonService jsonService;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
     private GraphqlServerConfigure graphqlServerConfigure;
+
+    @Autowired
+    private GraphqlRegisterConfigure graphQLRegisterConfigure;
 
     /**
      * 拉取TP-DOC上的配置
@@ -48,8 +53,30 @@ public class TpdocServiceImpl implements TpdocService {
      */
     @Override
     public ProviderApiDto fetchDocData(String appId, String vcsId, String apiCodes) {
+        if (StringUtils.isEmpty(vcsId)) {
+            vcsId = GraphqlConsts.STR_DEFAULT_VCS_ID;
+        }
+        //尝试从redis中取
+        String key = getProviderPath(appId);
+
+        HashOperations<String, Object, Object> opsForHash = redisTemplate.opsForHash();
+        String providerDocStr = (String) opsForHash.get(key, vcsId);
+        if (StringUtils.isEmpty(providerDocStr)) {
+            providerDocStr = getProviderDoc(appId, vcsId, apiCodes);
+            if (!StringUtils.isEmpty(providerDocStr)) {
+                logger.info("put redis {}:{}", key, vcsId);
+                opsForHash.put(key, vcsId, providerDocStr);
+            }
+        } else {
+            logger.info("doc from redis. {}:{}", key, vcsId);
+        }
+
+        return jsonService.toObject(providerDocStr, ProviderApiDto.class);
+    }
+
+    private String getProviderDoc(String appId, String vcsId, String apiCodes) {
         String tpdocAddress = graphqlServerConfigure.getTpdocUrl();
-        String url = tpdocAddress + "/api/doc/app/" + appId + "/";
+        String url = tpdocAddress + "/api/doc/app/" + appId + GraphqlConsts.PATH_SPLITTER;
         HttpUrl httpUrl = HttpUrl.parse(url);
         if (httpUrl == null) {
             throw new OkHttpInvocationException("调用发生错误，url异常：" + url);
@@ -57,15 +84,16 @@ public class TpdocServiceImpl implements TpdocService {
 
         HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
         //添加参数
-        urlBuilder.addEncodedQueryParameter(VCS_ID, vcsId);
-        if(!StringUtils.isEmpty(apiCodes)) {
-            urlBuilder.addEncodedQueryParameter(API_CODES, apiCodes);
+        urlBuilder.addEncodedQueryParameter(GraphqlConsts.VCS_ID, vcsId);
+        if (!StringUtils.isEmpty(apiCodes)) {
+            urlBuilder.addEncodedQueryParameter(GraphqlConsts.API_CODES, apiCodes);
         }
 
         Request.Builder requestBuilder = OkHttpUtils.getRestFulRequestBuilder(urlBuilder);
 
-        String domain = tpdocAddress.substring(tpdocAddress.indexOf("//") + 2);
-        requestBuilder.addHeader(DOMAIN, domain);
+        int index = tpdocAddress.indexOf(GraphqlConsts.STR_DOUBLE_PATH_SPLITTER) + GraphqlConsts.STR_DOUBLE_PATH_SPLITTER.length();
+        String domain = tpdocAddress.substring(index);
+        requestBuilder.addHeader(GraphqlConsts.DOMAIN, domain);
 
         Request request = requestBuilder.build();
         logger.info("获取Provider API信息请求：{}", request);
@@ -78,16 +106,23 @@ public class TpdocServiceImpl implements TpdocService {
                 }
                 bytes = body.bytes();
             }
-            if (bytes.length < MIN_PROVIDER_API_INFO_LEN) {
+            if (bytes.length < GraphqlConsts.MIN_PROVIDER_API_INFO_LEN) {
                 logger.error("获取服务{}文档数据异常，query: {}", appId, request);
                 return null;
             }
 
-            String decompress = GzipUtils.decompress(bytes);
-            return objectMapper.readValue(decompress, ProviderApiDto.class);
+            return GzipUtils.decompress(bytes);
         } catch (IOException e) {
             logger.error("获取服务{}文档数据失败，query: {}", appId, request.toString(), e);
             return null;
         }
+    }
+
+    private String getProviderPath(String appId) {
+        return graphQLRegisterConfigure.getRoot()
+                + GraphqlConsts.STR_CLN
+                + GraphqlConsts.STR_APIS
+                + GraphqlConsts.STR_CLN
+                + appId;
     }
 }

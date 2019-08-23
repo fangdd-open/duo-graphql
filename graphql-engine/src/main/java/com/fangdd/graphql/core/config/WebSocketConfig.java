@@ -3,6 +3,7 @@ package com.fangdd.graphql.core.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+import org.springframework.web.socket.sockjs.transport.handler.SockJsWebSocketHandler;
 
 /**
  * 开启WebSocket支持
@@ -12,8 +13,21 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  */
 @Configuration
 public class WebSocketConfig {
+//    @Bean
+//    public SockJsWebSocketHandler getGraphqlWs() {
+//        return new SockJsWebSocketHandler() {
+//
+//        };
+//    }
+
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
+        return new ServerEndpointExporter() {
+            @Override
+            public void afterPropertiesSet() {
+                super.afterPropertiesSet();
+
+            }
+        };
     }
 }

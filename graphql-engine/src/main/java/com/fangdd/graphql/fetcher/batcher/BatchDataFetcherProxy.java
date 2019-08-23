@@ -5,7 +5,7 @@ import com.fangdd.graphql.core.exception.GraphqlInvocationException;
 import com.fangdd.graphql.provider.dto.BatchResponse;
 import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
-import com.fangdd.graphql.service.JsonService;
+import com.fangdd.graphql.register.JsonService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;

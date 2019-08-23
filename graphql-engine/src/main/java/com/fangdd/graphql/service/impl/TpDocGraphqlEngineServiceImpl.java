@@ -4,8 +4,10 @@ import com.fangdd.graphql.core.ExecutionMonitor;
 import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.GraphqlModuleContext;
 import com.fangdd.graphql.core.GraphqlProviderObserver;
+import com.fangdd.graphql.core.config.AsyncExecutor;
 import com.fangdd.graphql.core.config.GraphqlInvocationConfigure;
 import com.fangdd.graphql.core.util.GraphqlContextUtils;
+import com.fangdd.graphql.fetcher.SubscriptionDataFetcherProxy;
 import com.fangdd.graphql.pipeline.Pipeline;
 import com.fangdd.graphql.pipeline.PipelineManager;
 import com.fangdd.graphql.pipeline.RegistryState;
@@ -24,6 +26,7 @@ import graphql.execution.preparsed.PreparsedDocumentProvider;
 import graphql.schema.*;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static graphql.Scalars.GraphQLString;
 
 /**
  * 基于TP-DOC的Graphql Provider注册实现
@@ -71,6 +76,9 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
 
     @Autowired
     private List<Pipeline> pipelines;
+
+    @Autowired
+    private AsyncExecutor asyncExecutor;
 
     @Autowired
     private GraphqlProviderObserver graphqlProviderObserver;
@@ -130,7 +138,7 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
         } catch (Exception e) {
             logger.error("构建GraphQL Schema失败！", e);
         } finally {
-            logger.info("构建Schema耗时{}ms", System.currentTimeMillis() - t);
+            logger.info("构建Schema耗时 {}", System.currentTimeMillis() - t);
             GraphqlContextUtils.getGraphqlContext(schemaName).finish();
         }
     }
@@ -158,13 +166,12 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
         schemaStatus.hasMutation = buildMutation(registryState, mutationBuilder);
 
         //build subscription
-        schemaStatus.hasSubscription = false;
+        schemaStatus.hasSubscription = false;//buildSubscription(registryState, subscriptionBuilder);
 
         //build inner provider
         buildInnerProvider(registryState);
 
-        GraphQLSchema.Builder schemaBuilder = GraphQLSchema.newSchema()
-                .codeRegistry(registryState.getCodeRegistry().build());
+        GraphQLSchema.Builder schemaBuilder = GraphQLSchema.newSchema();
         if (schemaStatus.hasQuery) {
             schemaBuilder.query(queryBuilder.build());
         }
@@ -180,7 +187,8 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
             schemaBuilder.additionalDirectives(directiveSet);
         }
         GraphQLSchema graphQLSchema = schemaBuilder
-                .additionalTypes(registryState.getGraphQLTypes())
+                .codeRegistry(registryState.getCodeRegistry().build())
+//                .additionalTypes(registryState.getGraphQLTypes())
                 .build();
 
         //缓存Document，减少ql请求解析
@@ -212,32 +220,29 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
 
     private boolean buildSubscription(RegistryState registryState, GraphQLObjectType.Builder subscriptionBuilder) {
         SchemaBuildState state = new SchemaBuildState();
-        List<GraphQLFieldDefinition> fieldDefinitions = Lists.newArrayList();
-        GraphQLFieldDefinition fieldDefinition = GraphQLFieldDefinition.newFieldDefinition()
-                .name("testSubscription")
-                .type(GraphQLTypeReference.typeRef("xf_House"))
-                .description("测试订阅功能")
-                .build();
-        fieldDefinitions.add(fieldDefinition);
-        GraphQLObjectType moduleSubscriptionOutType = GraphQLObjectType
-                .newObject()
-                .name("S_XF")
-                .fields(fieldDefinitions)
-                .build();
+        String topicName = "testSubscription";
+        DataFetcher subscriptionDataFetcher = getSubscriptionDataFetcher(topicName);
         GraphQLFieldDefinition.Builder groupSubscriptionBuilder = GraphQLFieldDefinition.newFieldDefinition()
-                .name("xf")
-                .type(moduleSubscriptionOutType);
+                .name(topicName)
+                .description("测试订阅功能")
+                .arguments(Lists.newArrayList(
+                        GraphQLArgument.newArgument().name("id").type(GraphQLString).build()
+                ))
+                .type(GraphQLTypeReference.typeRef("agent_Agent"));
         subscriptionBuilder.field(groupSubscriptionBuilder);
         state.hasSubscription = true;
-        registryState.addGraphQLType("S_XF.xf", moduleSubscriptionOutType);
-        DataFetcher subscriptionDataFetcher = new DataFetcher() {
-            @Override
-            public Object get(DataFetchingEnvironment environment) throws Exception {
-                return null;
-            }
-        };
-        registryState.getCodeRegistry().dataFetcher(FieldCoordinates.coordinates("S_XF", "testSubscription"), subscriptionDataFetcher);
+
+        registryState.getCodeRegistry()
+                .dataFetcher(FieldCoordinates.coordinates(GraphqlConsts.SUBSCRIPTION, topicName), subscriptionDataFetcher)
+        ;
         return state.hasSubscription;
+    }
+
+    @NotNull
+    private DataFetcher getSubscriptionDataFetcher(String topicName) {
+        SubscriptionDataFetcherProxy subscriptionDataFetcherProxy = new SubscriptionDataFetcherProxy();
+        subscriptionDataFetcherProxy.setTopicName(topicName);
+        return subscriptionDataFetcherProxy;
     }
 
     private boolean buildMutation(RegistryState registryState, GraphQLObjectType.Builder mutationBuilder) {

@@ -7,10 +7,10 @@
     <parent>
         <groupId>com.fangdd.graphql</groupId>
         <artifactId>graphql-parent</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
 
-    <artifactId>graphql-provider-tpdoc</artifactId>
+    <artifactId>graphql-provider-remote-tpdoc</artifactId>
     <description>这个项目是基于TP-DOC的供应端</description>
 
     <dependencies>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.9.2</version>
+            <version>${jackson-databind.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

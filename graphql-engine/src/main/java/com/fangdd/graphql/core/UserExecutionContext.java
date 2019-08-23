@@ -1,5 +1,6 @@
 package com.fangdd.graphql.core;
 
+import com.fangdd.graphql.core.subscribe.GraphqlSubscriber;
 import com.fangdd.graphql.fetcher.batcher.BatchLoader;
 import com.google.common.collect.Maps;
 
@@ -31,6 +32,7 @@ public class UserExecutionContext {
      * 当前查询的缓存KEY
      */
     private String executionKey;
+    private GraphqlSubscriber subscriber;
 
     /**
      * 将某个dataFetcher添加到批量处理里面，并执行请求
@@ -72,5 +74,13 @@ public class UserExecutionContext {
 
     public void setSchemaName(String schemaName) {
         this.schemaName = schemaName;
+    }
+
+    public void setSubscriber(GraphqlSubscriber subscriber) {
+        this.subscriber = subscriber;
+    }
+
+    public GraphqlSubscriber getSubscriber() {
+        return subscriber;
     }
 }

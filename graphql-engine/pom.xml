@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.fangdd.graphql</groupId>
         <artifactId>graphql-parent</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>graphql-engine</artifactId>
@@ -23,15 +23,33 @@
 
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
+            <artifactId>graphql-register</artifactId>
+            <version>${duo-graphql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-provider-inner</artifactId>
             <version>${duo-graphql.version}</version>
         </dependency>
 
-        <!-- 使用ZK注册中心 -->
+        <!--&lt;!&ndash; 使用ZK注册中心 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.fangdd.graphql</groupId>-->
+            <!--<artifactId>graphql-register-zk</artifactId>-->
+            <!--<version>${duo-graphql.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- redis -->
         <dependency>
-            <groupId>com.fangdd.graphql</groupId>
-            <artifactId>graphql-register-zk</artifactId>
-            <version>${duo-graphql.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
 
         <dependency>
@@ -83,7 +101,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
-            <version>2.9.9.2</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
 
         <!-- 用于做查询语句缓存 -->

@@ -7,7 +7,7 @@ import com.fangdd.graphql.core.util.GraphqlContextUtils;
 import com.fangdd.graphql.fetcher.DataFetcherProxy;
 import com.fangdd.graphql.provider.BaseDataFetcher;
 import com.fangdd.graphql.provider.InnerProvider;
-import com.fangdd.graphql.provider.dto.ProvidModelInfo;
+import com.fangdd.graphql.provider.dto.ProviderModelInfo;
 import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
 import com.fangdd.graphql.provider.dto.provider.Entity;
@@ -184,7 +184,7 @@ public class RegistryState {
         providerApi.getApis().forEach(api -> setApi(moduleName, api));
 
         //处理refId
-        List<ProvidModelInfo> models = provider.getModels();
+        List<ProviderModelInfo> models = provider.getModels();
         if (CollectionUtils.isEmpty(models)) {
             return;
         }
@@ -203,7 +203,7 @@ public class RegistryState {
         entities.forEach(entity -> entityMap.put(entity.getName(), entity));
     }
 
-    private void setModelRefDataFetcher(TpDocGraphqlProviderServiceInfo provider, ProvidModelInfo model) {
+    private void setModelRefDataFetcher(TpDocGraphqlProviderServiceInfo provider, ProviderModelInfo model) {
         Set<String> refIds = model.getRefIds();
         if (CollectionUtils.isEmpty(refIds)) {
             return;

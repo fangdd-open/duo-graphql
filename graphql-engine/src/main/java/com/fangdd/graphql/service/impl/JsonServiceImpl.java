@@ -2,9 +2,8 @@ package com.fangdd.graphql.service.impl;
 
 import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.exception.GraphqlInvocationException;
-import com.fangdd.graphql.service.JsonService;
+import com.fangdd.graphql.register.JsonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;

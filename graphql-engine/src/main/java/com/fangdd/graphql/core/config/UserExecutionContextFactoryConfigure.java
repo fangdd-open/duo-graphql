@@ -6,6 +6,8 @@ import graphql.spring.web.servlet.GraphQLInvocationData;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.WebRequest;
 
 /**
@@ -14,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
  */
 @Configuration
 @ConditionalOnMissingBean(UserExecutionContextFactory.class)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class UserExecutionContextFactoryConfigure {
     @Bean
     public UserExecutionContextFactory<UserExecutionContext> getDefaultUserExecutionContextFactory() {

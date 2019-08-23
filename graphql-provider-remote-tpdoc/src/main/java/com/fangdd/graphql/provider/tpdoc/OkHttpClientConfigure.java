@@ -3,6 +3,7 @@ package com.fangdd.graphql.provider.tpdoc;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import okhttp3.internal.Util;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019/7/16
  */
 @Configuration
+@ConditionalOnMissingBean(OkHttpClient.class)
 public class OkHttpClientConfigure {
     private OkHttpClient okHttpClient;
 
