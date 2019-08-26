@@ -25,6 +25,7 @@ public class GraphqlConsts {
     public static final String STR_DOT = ".";
     public static final String STR_M = "M_";
     public static final String STR_ID = "Id";
+    public static final String STR_ID_LOWER = "id";
     public static final String STR_S = "s";
     public static final String STR_EQ = "=";
     public static final String STR_LT = "<";

@@ -183,7 +183,11 @@ public class DataFetcherProxy extends BaseDataFetcher {
             batchDataFetcherProxy.setServiceInfo(batchDataFetcherData.getContextModule().getProvider());
             batchDataFetcherProxy.setApi(batchApi);
             batchDataFetcherProxy.setParams(params);
-            batchDataFetcherProxy.setSelections(batchDataFetcherData.getSelections());
+            List<String> selections = batchDataFetcherData.getSelections();
+            if (!selections.contains(GraphqlConsts.STR_ID_LOWER)) {
+                selections.add(GraphqlConsts.STR_ID_LOWER);
+            }
+            batchDataFetcherProxy.setSelections(selections);
             batchDataFetcherProxy.setRefIdsMerge(originDataFetcher.getApi() == batchApi);
             batchDataFetcherProxy.setPath(entry.getKey());
             GraphqlContextUtils.getApplicationContext().getAutowireCapableBeanFactory().autowireBean(batchDataFetcherProxy);

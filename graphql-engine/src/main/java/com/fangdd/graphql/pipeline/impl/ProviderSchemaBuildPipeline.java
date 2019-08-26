@@ -141,8 +141,6 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
         }
     }
 
-
-
     /**
      * get graphql type field type
      *
@@ -286,7 +284,6 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
         List<String> refFields = refDataFetcher.getDependencyFields();
         String refFieldName = refFields.get(0);
         String newFieldName = newRefTypeName(refFieldName);
-
 
         GraphQLFieldDefinition refField = GraphQLFieldDefinition
                 .newFieldDefinition()
