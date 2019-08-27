@@ -41,7 +41,6 @@ import static graphql.schema.idl.RuntimeWiring.newRuntimeWiring;
  * @date 2019/4/9
  */
 @Configuration
-@ConditionalOnBean(UserExecutionContextFactory.class)
 public class GraphqlInvocationConfigure {
     private static final Logger logger = LoggerFactory.getLogger(GraphqlInvocationConfigure.class);
 

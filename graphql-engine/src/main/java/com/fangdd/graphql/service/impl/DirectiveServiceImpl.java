@@ -77,7 +77,9 @@ public class DirectiveServiceImpl implements DirectiveService {
     }
 
     private Object getPathValue(DataFetchingEnvironment environment, String path, Object data, BaseGraphqlDirectiveFactory directive, Map<String, Object> argMap) {
-        if (List.class.isInstance(data)) {
+        if (data == null) {
+            return null;
+        } else if (List.class.isInstance(data)) {
             List listData = (List) data;
             for (int i = 0; i < listData.size(); i++) {
                 Object item = listData.get(i);
