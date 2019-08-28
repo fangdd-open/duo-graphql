@@ -1,7 +1,6 @@
 package com.fangdd.graphql.fetcher.batcher;
 
 import com.fangdd.graphql.core.GraphqlConsts;
-import com.fangdd.graphql.core.GraphqlContext;
 import com.fangdd.graphql.core.exception.GraphqlEngineException;
 import com.fangdd.graphql.core.util.GraphqlContextUtils;
 import com.fangdd.graphql.fetcher.DataFetcherProxy;
@@ -44,7 +43,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
     /**
      * 如果refIdsMerge=true，则当前存储各段数量
      */
-    private List<Integer> refIdsCounts;
+    private List<List<Object>> refIdsList;
 
     /**
      * 批量查询多少数据？
@@ -140,11 +139,11 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
         if (!refIdsMerge) {
             return join(paramValues);
         }
-        refIdsCounts = Lists.newArrayList();
+        refIdsList = Lists.newArrayList();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < paramValues.size(); i++) {
             List<Object> ps = (List<Object>) paramValues.get(i);
-            refIdsCounts.add(ps == null ? 0 : ps.size());
+            refIdsList.add(ps);
             if (i > 0) {
                 sb.append(GraphqlConsts.STR_COMMA);
             }
@@ -228,7 +227,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
         return refIdsMerge;
     }
 
-    List<Integer> getRefIdsCounts() {
-        return refIdsCounts;
+    List<List<Object>> getRefIdsList() {
+        return refIdsList;
     }
 }

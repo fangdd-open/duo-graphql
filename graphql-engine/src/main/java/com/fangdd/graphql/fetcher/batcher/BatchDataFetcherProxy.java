@@ -1,15 +1,19 @@
 package com.fangdd.graphql.fetcher.batcher;
 
+import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.exception.GraphqlInvocationException;
 import com.fangdd.graphql.provider.dto.BatchResponse;
 import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
 import com.fangdd.graphql.service.JsonService;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 批量查询
@@ -60,14 +64,30 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
     }
 
     private void processRefIdsMergeResponseData(List data) {
-        List<Integer> refIdsCounts = getRefIdsCounts();
-        int start = 0;
+        //需要做些特殊处理
+        //用于存储id与实体的映射关系
+        Map<Object, Object> idMap = setIdMap(data);
+
+        List<List<Object>> refIdsCounts = getRefIdsList();
         batchDataList = Lists.newArrayList();
-        for (int i = 0; i < refIdsCounts.size(); i++) {
-            int count = refIdsCounts.get(i);
-            batchDataList.add(data.subList(start, start + count));
-            start += count;
+        refIdsCounts.forEach(ids -> {
+            List<Object> entities = Lists.newArrayList();
+            ids.forEach(id -> entities.add(idMap.get(id)));
+            batchDataList.add(entities);
+        });
+    }
+
+    private Map<Object, Object> setIdMap(List data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return Maps.newHashMap();
         }
+
+        return (Map<Object, Object>) data.stream()
+                .filter(item -> item instanceof Map)
+                .collect(Collectors.toMap(
+                        (Map map) -> map.get(GraphqlConsts.STR_ID_LOWER),
+                        map -> map
+                ));
     }
 
     private void processNormalResponseData(Map<String, List<Object>> batchResponse) {

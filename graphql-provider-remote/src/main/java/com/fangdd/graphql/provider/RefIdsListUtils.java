@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 /**
  * @author xuwenzhen
  * @date 2019/8/26
+ * @deprecated 已经切换到引擎中实现
  */
 public class RefIdsListUtils {
     public static <T, D> List<T> getResortedRefs(String ids, Class<D> idClass, Function<Set<D>, List<T>> getByIdsFunction, Function<T, D> getEntityIdSupplier) {
