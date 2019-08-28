@@ -55,6 +55,10 @@ public class GraphqlContext {
     private RegistryState registryState;
 
     public GraphqlContext(RegistryState registryState) {
+        setRegistryState(registryState);
+    }
+
+    public void setRegistryState(RegistryState registryState) {
         this.registryState = registryState;
         busy = true;
     }

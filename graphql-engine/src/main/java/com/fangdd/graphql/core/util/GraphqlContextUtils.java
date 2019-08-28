@@ -72,7 +72,12 @@ public class GraphqlContextUtils {
     }
 
     public static void registry(RegistryState registryState) {
-        GraphqlContext graphqlContext = new GraphqlContext(registryState);
-        GRAPHQL_CONTEXT_MAP.put(registryState.getSchemaName(), graphqlContext);
+        GraphqlContext graphqlContext = GRAPHQL_CONTEXT_MAP.get(registryState.getSchemaName());
+        if (graphqlContext == null) {
+            graphqlContext = new GraphqlContext(registryState);
+            GRAPHQL_CONTEXT_MAP.put(registryState.getSchemaName(), graphqlContext);
+        } else {
+            graphqlContext.setRegistryState(registryState);
+        }
     }
 }
