@@ -71,7 +71,12 @@ public class GraphqlInvocationConfigure {
     @Bean
     @Primary
     public GraphQL getGraphQL() {
-        return graphQLMap.get(GraphqlConsts.STR_DEFAULT);
+        GraphQL graphQL = graphQLMap.get(GraphqlConsts.STR_DEFAULT);
+        if (graphQL == null) {
+            graphQL = helloWorld();
+            graphQLMap.put(GraphqlConsts.STR_DEFAULT, graphQL);
+        }
+        return graphQL;
     }
 
     @Bean
@@ -116,7 +121,7 @@ public class GraphqlInvocationConfigure {
     private void setExecutionContextSchemaName(WebRequest webRequest, UserExecutionContext context) {
         String schemaName;
         if (ServletWebRequest.class.isInstance(webRequest)) {
-            ServletWebRequest servletWebRequest = (ServletWebRequest)webRequest;
+            ServletWebRequest servletWebRequest = (ServletWebRequest) webRequest;
             String url = servletWebRequest.getRequest().getRequestURI();
             schemaName = graphqlProviderConfigure.getUrlSchemaName(url);
         } else {

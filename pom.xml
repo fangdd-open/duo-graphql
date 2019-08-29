@@ -73,14 +73,14 @@
 
     <distributionManagement>
         <repository>
-            <id>sonatype-releases</id>
-            <name>sonatype-release</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <id>releases</id>
+            <name>nexus-release</name>
+            <url>http://nexus.nh.fangdd.cn/nexus/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>sonatype-snapshots</id>
-            <name>sonatype-snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>http://nexus.nh.fangdd.cn/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>

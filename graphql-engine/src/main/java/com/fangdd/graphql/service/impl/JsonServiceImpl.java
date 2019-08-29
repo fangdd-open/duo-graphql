@@ -71,7 +71,7 @@ public class JsonServiceImpl implements JsonService {
         if (StringUtils.isEmpty(jsonStr)) {
             return null;
         }
-        JsonNode nodeTree = null;
+        JsonNode nodeTree;
         try {
             nodeTree = objectMapper.readTree(jsonStr);
         } catch (IOException e) {

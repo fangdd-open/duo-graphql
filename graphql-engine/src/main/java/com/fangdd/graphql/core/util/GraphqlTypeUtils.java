@@ -77,8 +77,13 @@ public class GraphqlTypeUtils {
         GRAPHQL_TYPE_MAP.put(Date.class.getName(), GraphQLLong);
     }
 
-    public static GraphQLType getBaseGraphQLType(String name) {
-        return GRAPHQL_TYPE_MAP.get(name);
+    public static GraphQLType getBaseGraphQLType(String typeName, String fieldName) {
+        GraphQLType graphQLType = GRAPHQL_TYPE_MAP.get(typeName);
+        if (graphQLType != null && GraphqlConsts.STR_ID_LOWER.equals(fieldName)) {
+            // ID
+            return GraphQLID;
+        }
+        return graphQLType;
     }
 
     private GraphqlTypeUtils() {
@@ -105,7 +110,7 @@ public class GraphqlTypeUtils {
     }
 
     public static GraphQLType getGraphqlInputType(RegistryState registryState, String moduleName, String entityName) {
-        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName);
+        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName, null);
         if (baseGraphQLType != null) {
             return baseGraphQLType;
         }
@@ -146,6 +151,7 @@ public class GraphqlTypeUtils {
 
         return addAndGetInputGraphQLType(registryState, moduleName, entity);
     }
+
     private static GraphQLType addAndGetInputGraphQLType(RegistryState registryState, String moduleName, Entity entity) {
         if (CollectionUtils.isEmpty(entity.getFields())) {
             throw new GraphqlBuildException("Pojo：" + entity.getName() + "，无属性！");
@@ -185,7 +191,6 @@ public class GraphqlTypeUtils {
     private static GraphQLList addAndGetGraphQLListType(GraphQLType graphqlType) {
         return GraphQLList.list(graphqlType);
     }
-
 
 
     public static String getModuleTypeName(Entity entity, String moduleName) {
