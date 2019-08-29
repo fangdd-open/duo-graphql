@@ -177,7 +177,7 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
         Boolean enumerate = entity.getEnumerate();
         if (enumerate != null && enumerate) {
             // 枚举
-            return addAndGetGraphQLEnumType(registryState, moduleContext, entity);
+            return GraphqlTypeUtils.addAndGetGraphQLEnumType(registryState, moduleContext.getModuleName(), entity);
         }
 
         GraphQLType graphQLType = registryState.getGraphQLType(entityName);
@@ -341,39 +341,6 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
         registryState.codeRegistry(typeName, field.getName(), dataFetcher);
 
         return (GraphQLOutputType) getGraphqlOutputType(registryState, moduleContext, api.getResponse());
-    }
-
-    /**
-     * create enum type
-     */
-    private GraphQLEnumType addAndGetGraphQLEnumType(RegistryState registryState, GraphqlModuleContext moduleContext, Entity entity) {
-        String name = GraphqlTypeUtils.getModuleTypeName(entity, moduleContext.getProvider().getModuleName());
-        GraphQLType type = registryState.getGraphQLType(name);
-
-        if (type != null) {
-            return (GraphQLEnumType) type;
-        }
-        if (CollectionUtils.isEmpty(entity.getFields())) {
-            throw new GraphqlBuildException("枚举:" + entity.getName() + ",元素为空！");
-        }
-
-        GraphQLEnumType.Builder enumTypeBuilder = GraphQLEnumType.newEnum().name(name);
-        if (!StringUtils.isEmpty(entity.getComment())) {
-            enumTypeBuilder.description(entity.getComment());
-        }
-
-        entity.getFields().forEach(field -> {
-            GraphQLEnumValueDefinition.Builder enumValueBuild =
-                    GraphQLEnumValueDefinition.newEnumValueDefinition().name(field.getName());
-            if (!StringUtils.isEmpty(field.getComment())) {
-                enumValueBuild.description(field.getComment());
-            }
-
-            enumTypeBuilder.value(enumValueBuild.build());
-        });
-        GraphQLEnumType graphQLEnumType = enumTypeBuilder.build();
-        registryState.addGraphQLType(name, graphQLEnumType);
-        return graphQLEnumType;
     }
 
     private String newRefTypeName(String name) {

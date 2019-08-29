@@ -139,6 +139,12 @@ public class GraphqlTypeUtils {
             return addAndGetGraphQLListType(paramGraphQLType);
         }
 
+        boolean isEnum = entity.getEnumerate() != null && entity.getEnumerate();
+        if (isEnum) {
+            //如果是枚举
+            return addAndGetGraphQLEnumType(registryState, moduleName, entity);
+        }
+
         GraphQLType graphQLType = registryState.getGraphQLType(entityName);
         if (graphQLType != null) {
             return graphQLType;
@@ -152,6 +158,39 @@ public class GraphqlTypeUtils {
         return addAndGetInputGraphQLType(registryState, moduleName, entity);
     }
 
+    /**
+     * create enum type
+     */
+    public static GraphQLEnumType addAndGetGraphQLEnumType(RegistryState registryState, String moduleName, Entity entity) {
+        String name = GraphqlTypeUtils.getModuleTypeName(entity, moduleName);
+        GraphQLType type = registryState.getGraphQLType(name);
+
+        if (type != null) {
+            return (GraphQLEnumType) type;
+        }
+        if (CollectionUtils.isEmpty(entity.getFields())) {
+            throw new GraphqlBuildException("枚举:" + entity.getName() + ",元素为空！");
+        }
+
+        GraphQLEnumType.Builder enumTypeBuilder = GraphQLEnumType.newEnum().name(name);
+        if (!StringUtils.isEmpty(entity.getComment())) {
+            enumTypeBuilder.description(entity.getComment());
+        }
+
+        entity.getFields().forEach(field -> {
+            GraphQLEnumValueDefinition.Builder enumValueBuild =
+                    GraphQLEnumValueDefinition.newEnumValueDefinition().name(field.getName());
+            if (!StringUtils.isEmpty(field.getComment())) {
+                enumValueBuild.description(field.getComment());
+            }
+            enumValueBuild.value(field.getName());
+            enumTypeBuilder.value(enumValueBuild.build());
+        });
+        GraphQLEnumType graphQLEnumType = enumTypeBuilder.build();
+        registryState.addGraphQLType(name, graphQLEnumType);
+        return graphQLEnumType;
+    }
+
     private static GraphQLType addAndGetInputGraphQLType(RegistryState registryState, String moduleName, Entity entity) {
         if (CollectionUtils.isEmpty(entity.getFields())) {
             throw new GraphqlBuildException("Pojo：" + entity.getName() + "，无属性！");
@@ -162,6 +201,10 @@ public class GraphqlTypeUtils {
         entity.getFields().forEach(field -> {
             GraphQLInputType fieldType = (GraphQLInputType) getGraphqlInputType(registryState, moduleName, field.getEntityName());
             if (fieldType == null) {
+                if (entity.getEnumerate() != null && entity.getEnumerate()) {
+                    //如果是枚举
+
+                }
                 return;
             }
             String fieldName = field.getName();
