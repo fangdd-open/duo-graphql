@@ -184,7 +184,7 @@ public class DataFetcherProxy extends BaseDataFetcher {
             batchDataFetcherProxy.setApi(batchApi);
             batchDataFetcherProxy.setParams(params);
             List<String> selections = batchDataFetcherData.getSelections();
-            if (!selections.contains(GraphqlConsts.STR_ID_LOWER)) {
+            if (!CollectionUtils.isEmpty(selections) && !selections.contains(GraphqlConsts.STR_ID_LOWER)) {
                 selections.add(GraphqlConsts.STR_ID_LOWER);
             }
             batchDataFetcherProxy.setSelections(selections);
