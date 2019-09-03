@@ -99,11 +99,16 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
 
     @Override
     public Object get(int index) {
-        await();
         //在上面保证了索引不会超出
+        await();
+        if (batchDataList == null) {
+            batchDataList = Lists.newArrayList();
+        }
+        if (batchDataList.size() <= index) {
+            return null;
+        }
         return batchDataList.get(index);
     }
-
     /**
      * 设置当前服务端信息
      *

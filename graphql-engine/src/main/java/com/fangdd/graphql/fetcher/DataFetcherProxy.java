@@ -178,6 +178,11 @@ public class DataFetcherProxy extends BaseDataFetcher {
                 Object values = getParamValues(environment, data, fieldName, batchDataFetcherData.getFieldPath(), false);
                 params.put(paramName, (List<Object>) values);
             });
+            //处理常量参数
+            Map<String, Object> selectionConstMap = originDataFetcher.getSelectionConstMap();
+            if (!CollectionUtils.isEmpty(selectionConstMap)) {
+                selectionConstMap.forEach((paramName, value) -> params.put(paramName, Lists.newArrayList(value)));
+            }
 
             BatchDataFetcherProxy batchDataFetcherProxy = new BatchDataFetcherProxy();
             batchDataFetcherProxy.setServiceInfo(batchDataFetcherData.getContextModule().getProvider());
