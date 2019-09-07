@@ -10,7 +10,6 @@ import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
 import com.fangdd.graphql.provider.dto.provider.EntityRef;
 import com.fangdd.graphql.provider.dto.provider.ProviderApiDto;
-import com.fangdd.graphql.scalar.JsonScalar;
 import com.fangdd.graphql.service.JsonService;
 import com.fangdd.graphql.service.TpdocService;
 import com.google.common.base.Charsets;

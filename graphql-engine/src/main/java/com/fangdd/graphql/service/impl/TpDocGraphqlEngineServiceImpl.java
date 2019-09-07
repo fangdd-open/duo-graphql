@@ -260,7 +260,7 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
                         .name(moduleName)
                         .type(moduleMutationOutType);
 
-                FieldCoordinates coordinates = FieldCoordinates.coordinates(GraphqlConsts.MUTATION, moduleName.toLowerCase());
+                FieldCoordinates coordinates = FieldCoordinates.coordinates(GraphqlConsts.MUTATION, moduleName);
                 DataFetcher dataFetcher = environment -> Maps.newHashMap();
                 registryState.getCodeRegistry().dataFetcher(coordinates, dataFetcher);
 
@@ -290,7 +290,7 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
                 GraphQLFieldDefinition.Builder moduleQueryBuilder = GraphQLFieldDefinition.newFieldDefinition()
                         .name(moduleName)
                         .type(moduleQueryOutType);
-                FieldCoordinates coordinates = FieldCoordinates.coordinates(GraphqlConsts.QUERY, moduleName.toLowerCase());
+                FieldCoordinates coordinates = FieldCoordinates.coordinates(GraphqlConsts.QUERY, moduleName);
                 DataFetcher dataFetcher = environment -> Maps.newHashMap();
                 registryState.getCodeRegistry().dataFetcher(coordinates, dataFetcher);
 

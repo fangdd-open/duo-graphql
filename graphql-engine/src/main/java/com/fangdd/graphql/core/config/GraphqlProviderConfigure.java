@@ -47,6 +47,9 @@ public class GraphqlProviderConfigure {
     }
 
     public String getUrlSchemaName(String url) {
+        if (urlSchemaMap == null) {
+            return GraphqlConsts.STR_DEFAULT;
+        }
         return urlSchemaMap.computeIfAbsent(url, u -> GraphqlConsts.STR_DEFAULT);
     }
 }
