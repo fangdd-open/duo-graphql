@@ -79,10 +79,10 @@ public class GraphqlTypeUtils {
 
     public static GraphQLType getBaseGraphQLType(String typeName, String fieldName) {
         GraphQLType graphQLType = GRAPHQL_TYPE_MAP.get(typeName);
-        if (graphQLType != null && GraphqlConsts.STR_ID_LOWER.equals(fieldName)) {
-            // ID
-            return GraphQLID;
-        }
+//        if (graphQLType != null && GraphqlConsts.STR_ID_LOWER.equals(fieldName)) {
+//            // ID
+//            return GraphQLID;
+//        }
         return graphQLType;
     }
 

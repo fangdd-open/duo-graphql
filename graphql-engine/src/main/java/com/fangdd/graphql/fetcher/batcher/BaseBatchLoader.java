@@ -111,7 +111,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
             boolean isString = STRING_CLASS_NAME.equals(entityName);
             boolean isCollection = entity.getCollection() != null && entity.getCollection();
             if (isCollection || isString) {
-                //如果是个列表 或 字段串时
+                //如果是个列表 或 字符串时
                 paramMap.put(name, getParamValues(paramValues));
                 batchSize[0] = paramValues.size();
             } else {
