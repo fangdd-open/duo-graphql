@@ -62,7 +62,8 @@ public class DataFetchUtils {
             if (strValue.length() < MIN_STR_CONST_VALUE_LEN) {
                 return "";
             }
-            return strValue.substring(1, strValue.length() - 2);
+            ///字符串"\'foo\'"，需要前后截取2位
+            return strValue.substring(2, strValue.length() - 2);
         }
 
         return null;

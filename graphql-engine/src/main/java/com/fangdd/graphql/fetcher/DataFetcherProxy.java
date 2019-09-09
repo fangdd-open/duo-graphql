@@ -354,9 +354,9 @@ public class DataFetcherProxy extends BaseDataFetcher {
                     });
         }
 
-        if (!CollectionUtils.isEmpty(selectionConstMap)) {
-            selectionConstMap.entrySet().forEach(entry -> addUrlParams(urlBuilder, entry.getKey(), entry.getValue()));
-        }
+//        if (!CollectionUtils.isEmpty(selectionConstMap)) {
+//            selectionConstMap.entrySet().forEach(entry -> addUrlParams(urlBuilder, entry.getKey(), entry.getValue()));
+//        }
         //调用数据
         HttpMethod method = DataFetchUtils.getHttpMethod(api);
         String selectionStr = null;
