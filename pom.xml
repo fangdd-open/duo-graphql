@@ -4,7 +4,7 @@
 
     <groupId>com.fangdd.graphql</groupId>
     <artifactId>graphql-parent</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -23,7 +23,7 @@
         <spring.version>5.1.5.RELEASE</spring.version>
         <graphql-java.version>13.0</graphql-java.version>
         <jedis.version>3.0.1</jedis.version>
-        <duo-graphql.version>1.0.4-SNAPSHOT</duo-graphql.version>
+        <duo-graphql.version>1.4.0-SNAPSHOT</duo-graphql.version>
         <jackson-databind.version>2.9.9.2</jackson-databind.version>
     </properties>
 
