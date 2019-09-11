@@ -113,7 +113,12 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
             if (isCollection || isString) {
                 //如果是个列表 或 字符串时
                 paramMap.put(name, getParamValues(paramValues));
-                batchSize[0] = paramValues.size();
+                if (paramValues != null) {
+                    int size = paramValues.size();
+                    if (size > batchSize[0]) {
+                        batchSize[0] = size;
+                    }
+                }
             } else {
                 //如果是其它类型时，会直接取第一个参数的值
                 paramMap.put(name, paramValues.get(0));

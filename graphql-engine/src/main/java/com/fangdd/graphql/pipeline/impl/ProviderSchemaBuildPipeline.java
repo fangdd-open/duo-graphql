@@ -151,7 +151,7 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
      */
     private GraphQLType getGraphqlOutputType(RegistryState registryState, GraphqlModuleContext moduleContext, EntityRef entityRef) {
         String entityName = entityRef.getEntityName();
-        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName, entityRef.getName());
+        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName);
         if (baseGraphQLType != null) {
             return baseGraphQLType;
         }

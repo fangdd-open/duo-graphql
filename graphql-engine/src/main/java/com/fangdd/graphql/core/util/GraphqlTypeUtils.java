@@ -77,13 +77,8 @@ public class GraphqlTypeUtils {
         GRAPHQL_TYPE_MAP.put(Date.class.getName(), GraphQLLong);
     }
 
-    public static GraphQLType getBaseGraphQLType(String typeName, String fieldName) {
-        GraphQLType graphQLType = GRAPHQL_TYPE_MAP.get(typeName);
-//        if (graphQLType != null && GraphqlConsts.STR_ID_LOWER.equals(fieldName)) {
-//            // ID
-//            return GraphQLID;
-//        }
-        return graphQLType;
+    public static GraphQLType getBaseGraphQLType(String typeName) {
+        return GRAPHQL_TYPE_MAP.get(typeName);
     }
 
     private GraphqlTypeUtils() {
@@ -110,7 +105,7 @@ public class GraphqlTypeUtils {
     }
 
     public static GraphQLType getGraphqlInputType(RegistryState registryState, String moduleName, String entityName) {
-        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName, null);
+        GraphQLType baseGraphQLType = GraphqlTypeUtils.getBaseGraphQLType(entityName);
         if (baseGraphQLType != null) {
             return baseGraphQLType;
         }

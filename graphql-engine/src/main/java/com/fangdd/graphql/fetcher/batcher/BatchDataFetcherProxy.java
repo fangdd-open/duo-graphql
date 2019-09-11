@@ -72,7 +72,9 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
         batchDataList = Lists.newArrayList();
         refIdsCounts.forEach(ids -> {
             List<Object> entities = Lists.newArrayList();
-            ids.forEach(id -> entities.add(idMap.get(id)));
+            if (!CollectionUtils.isEmpty(ids)) {
+                ids.forEach(id -> entities.add(idMap.get(id)));
+            }
             batchDataList.add(entities);
         });
     }

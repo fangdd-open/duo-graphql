@@ -6,7 +6,6 @@ import com.fangdd.graphql.provider.dto.provider.Api;
 import com.google.common.base.Strings;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.http.HttpMethod;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -18,6 +17,7 @@ import java.util.Map;
  */
 public class DataFetchUtils {
     private static final String PATH_SPLITTER = "/";
+    private static final char ESCAPE_CHARACTER = '\\';
     private static final String INT = "int";
     private static final String INTEGER = "Integer";
     private static final String LONG = "long";
@@ -63,7 +63,11 @@ public class DataFetchUtils {
                 return "";
             }
             ///字符串"\'foo\'"，需要前后截取2位
-            return strValue.substring(2, strValue.length() - 2);
+            if (strValue.charAt(0) == ESCAPE_CHARACTER) {
+                return strValue.substring(2, strValue.length() - 2);
+            } else {
+                return strValue.substring(1, strValue.length() - 2);
+            }
         }
 
         return null;
