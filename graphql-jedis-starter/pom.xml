@@ -2,32 +2,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.fangdd.graphql</groupId>
         <artifactId>graphql-parent</artifactId>
         <version>1.4.1-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>graphql-provider-remote-redis</artifactId>
-    <description>这个项目是基于Redis的供应端</description>
+    <artifactId>graphql-jedis-starter</artifactId>
+    <version>1.4.1-SNAPSHOT</version>
 
     <dependencies>
-        <!-- GraphQL供应商基类 -->
-        <dependency>
-            <groupId>com.fangdd.graphql</groupId>
-            <artifactId>graphql-provider-remote</artifactId>
-            <version>${duo-graphql.version}</version>
-        </dependency>
-
         <!-- redis -->
         <dependency>
-            <groupId>com.fangdd.graphql</groupId>
-            <artifactId>graphql-jedis-starter</artifactId>
-            <version>${duo-graphql.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>

@@ -18,6 +18,7 @@ public class GraphqlConsts {
 
     public static final String STR_EMPTY = "";
     public static final String STR_COMMA = ",";
+    public static final String STR_SEMICOLON = ";";
     public static final String STR_AT = "@";
     public static final String STR_EXCLAMATION = "!";
     public static final String STR_STAR = "*";
@@ -40,6 +41,7 @@ public class GraphqlConsts {
     public static final String STR_APIS = "apis";
     public static final String STR_NULL = "null";
     public static final String STR_DEFAULT_VCS_ID = "last";
+    public static final String STR_SENTINEL = "sentinel";
     public static final String PATH_SPLITTER = "/";
     public static final String STR_DOUBLE_PATH_SPLITTER = "//";
     public static final String STR_SUBSCRIPTION = "subscription";
