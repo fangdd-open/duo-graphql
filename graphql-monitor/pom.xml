@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.fangdd.graphql</groupId>
         <artifactId>graphql-parent</artifactId>
-        <version>1.4.1-SNAPSHOT</version>
+        <version>1.4.1</version>
     </parent>
 
     <artifactId>graphql-monitor</artifactId>
