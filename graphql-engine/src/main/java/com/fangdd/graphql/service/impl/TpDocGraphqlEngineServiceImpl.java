@@ -4,7 +4,6 @@ import com.fangdd.graphql.core.ExecutionMonitor;
 import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.GraphqlModuleContext;
 import com.fangdd.graphql.core.GraphqlProviderObserver;
-import com.fangdd.graphql.core.config.AsyncExecutor;
 import com.fangdd.graphql.core.config.GraphqlInvocationConfigure;
 import com.fangdd.graphql.core.util.GraphqlContextUtils;
 import com.fangdd.graphql.fetcher.SubscriptionDataFetcherProxy;
@@ -76,9 +75,6 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
 
     @Autowired
     private List<Pipeline> pipelines;
-
-    @Autowired
-    private AsyncExecutor asyncExecutor;
 
     @Autowired
     private GraphqlProviderObserver graphqlProviderObserver;
@@ -199,6 +195,7 @@ public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDoc
                 .build();
         graphqlInvocationConfigure.setGraphQL(registryState.getSchemaName(), graphQL);
 
+        GraphqlContextUtils.CACHE.cleanUp();
         if (executionMonitor != null) {
             executionMonitor.onSchemaBuild(registryState, graphQL);
         }

@@ -280,7 +280,11 @@ public class RegistryState {
         }
         existsApi = apiMap.get(providerName);
         if (existsApi != null) {
-            throw new GraphqlBuildException("重复方法签名:" + existsApi + GraphqlConsts.STR_COMMA + api);
+            if (existsApi == api) {
+                //同一个接口
+                return;
+            }
+            throw new GraphqlBuildException("重复方法签名:providerName=" + providerName + GraphqlConsts.STR_COMMA + existsApi + GraphqlConsts.STR_COMMA + api);
         }
 
         apiMap.put(providerName, api);

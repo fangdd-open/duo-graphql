@@ -6,7 +6,6 @@ import com.fangdd.graphql.register.server.GraphqlEngineService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -19,7 +18,6 @@ import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * GraphQL Provider变更订阅者
@@ -63,21 +61,24 @@ public class GraphqlProviderObserver implements Observer<List<TpDocGraphqlProvid
     public void onNext(@NonNull List<TpDocGraphqlProviderServiceInfo> tpDocGraphqlProviderServiceInfos) {
         logger.info("GraphqlProviderObserver.onNext()");
         Map<String, List<TpDocGraphqlProviderServiceInfo>> schemaProvidersMap = Maps.newHashMap();
-        tpDocGraphqlProviderServiceInfos.forEach(provider -> {
-            String schemaNames = provider.getSchemaName();
-            if (StringUtils.isEmpty(schemaNames) || GraphqlConsts.STR_NULL.equals(schemaNames)) {
-                //如果没有设置schemaName，使用默认值
-                schemaNames = GraphqlConsts.STR_DEFAULT;
-                provider.setSchemaName(GraphqlConsts.STR_DEFAULT);
-            }
-            Splitter
-                    .on(GraphqlConsts.STR_COMMA)
-                    .trimResults()
-                    .omitEmptyStrings()
-                    .split(schemaNames)
-                    .forEach(schemaName -> schemaProvidersMap.computeIfAbsent(schemaName, k -> Lists.newArrayList()).add(provider));
+        tpDocGraphqlProviderServiceInfos
+                .stream()
+                .filter(provider -> !StringUtils.isEmpty(provider.getAppId()))
+                .forEach(provider -> {
+                    String schemaNames = provider.getSchemaName();
+                    if (StringUtils.isEmpty(schemaNames) || GraphqlConsts.STR_NULL.equals(schemaNames)) {
+                        //如果没有设置schemaName，使用默认值
+                        schemaNames = GraphqlConsts.STR_DEFAULT;
+                        provider.setSchemaName(GraphqlConsts.STR_DEFAULT);
+                    }
+                    Splitter
+                            .on(GraphqlConsts.STR_COMMA)
+                            .trimResults()
+                            .omitEmptyStrings()
+                            .split(schemaNames)
+                            .forEach(schemaName -> schemaProvidersMap.computeIfAbsent(schemaName, k -> Lists.newArrayList()).add(provider));
 
-        });
+                });
         schemaProvidersMap.entrySet().forEach(entity -> graphqlEngineService.registry(entity.getKey(), entity.getValue()));
     }
 

@@ -103,18 +103,16 @@ public abstract class BaseProviderRegistry {
 
         List<ProviderModelInfo> models = new ArrayList<>();
         Map<String, Object> beans = applicationContext.getBeansWithAnnotation(SchemaProvider.class);
-        if (beans.isEmpty()) {
-            return provider;
-        }
-
-        for (Map.Entry<String, Object> entry : beans.entrySet()) {
-            ProviderModelInfo modelInfo = getProvidModelInfo(entry);
-            if (modelInfo != null) {
-                models.add(modelInfo);
+        if (!beans.isEmpty()) {
+            for (Map.Entry<String, Object> entry : beans.entrySet()) {
+                ProviderModelInfo modelInfo = getProvidModelInfo(entry);
+                if (modelInfo != null) {
+                    models.add(modelInfo);
+                }
             }
-        }
-        if (!CollectionUtils.isEmpty(models)) {
-            provider.setModels(models);
+            if (!CollectionUtils.isEmpty(models)) {
+                provider.setModels(models);
+            }
         }
 
         //获取@GraphqlModule注解

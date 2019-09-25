@@ -66,8 +66,12 @@ public class RedisBaseProviderConfigure extends BaseProviderRegistry {
             throw new GraphqlProviderException("无法获取接口文档：" + apiDocName);
         }
 
+        final String appId = provider.getAppId();
+        if (StringUtils.isEmpty(appId)) {
+            throw new GraphqlProviderException("无法注册成graphql provider,appId为空，请检查duo-doc配置！");
+        }
         //注册接口文档
-        String key = redisRegistryPath + STR_CLN + APIS + STR_CLN + provider.getAppId();
+        String key = redisRegistryPath + STR_CLN + APIS + STR_CLN + appId;
         redisTemplate.execute(new SessionCallback() {
             /**
              * Executes all the given operations inside the same session.
@@ -80,7 +84,7 @@ public class RedisBaseProviderConfigure extends BaseProviderRegistry {
                 operations.multi();
                 HashOperations hashOperations = operations.opsForHash();
                 hashOperations.put(key, provider.getVcsId(), apiDoc);
-                hashOperations.put(redisRegistryPath + STR_CLN + STR_APPS, provider.getAppId(), provider.toString());
+                hashOperations.put(redisRegistryPath + STR_CLN + STR_APPS, appId, provider.toString());
                 return operations.exec();
             }
         });

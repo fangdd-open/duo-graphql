@@ -4,7 +4,7 @@
 
     <groupId>com.fangdd.graphql</groupId>
     <artifactId>graphql-parent</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.4</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -23,7 +23,7 @@
         <spring.version>5.1.5.RELEASE</spring.version>
         <graphql-java.version>13.0</graphql-java.version>
         <jedis.version>2.9.0</jedis.version>
-        <duo-graphql.version>1.4.1</duo-graphql.version>
+        <duo-graphql.version>1.4.4</duo-graphql.version>
         <jackson-databind.version>2.9.9.2</jackson-databind.version>
     </properties>
 
@@ -76,14 +76,14 @@
 
     <distributionManagement>
         <repository>
-            <id>releases</id>
-            <name>nexus-release</name>
-            <url>http://nexus.nh.fangdd.cn/nexus/content/repositories/releases/</url>
+            <id>sonatype-releases</id>
+            <name>sonatype-release</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
-            <name>nexus-snapshots</name>
-            <url>http://nexus.nh.fangdd.cn/nexus/content/repositories/snapshots/</url>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
