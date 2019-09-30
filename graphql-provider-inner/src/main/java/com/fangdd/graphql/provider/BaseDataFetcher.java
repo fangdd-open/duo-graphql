@@ -7,6 +7,7 @@ import graphql.schema.GraphQLOutputType;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 /**
  * 领域服务DataFetcher
@@ -74,6 +75,16 @@ public abstract class BaseDataFetcher implements DataFetcher {
 
     @Override
     public Object get(DataFetchingEnvironment environment) throws Exception {
-        return CompletableFuture.supplyAsync(() -> getData(environment));
+        return getAsyncData(() -> getData(environment));
+    }
+
+    /**
+     * 抽取本方法，主要是为了在APM中，探针重写，请不要删除本方法
+     *
+     * @param supplier supplier
+     * @return
+     */
+    private CompletableFuture<Object> getAsyncData(Supplier<Object> supplier) {
+        return CompletableFuture.supplyAsync(supplier);
     }
 }

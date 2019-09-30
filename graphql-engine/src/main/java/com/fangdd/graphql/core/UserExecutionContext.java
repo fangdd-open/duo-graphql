@@ -5,6 +5,7 @@ import com.fangdd.graphql.fetcher.batcher.BatchLoader;
 import com.google.common.collect.Maps;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 查询运行时上下文
@@ -27,6 +28,11 @@ public class UserExecutionContext {
      * 请求头
      */
     private Map<String, String> headers = Maps.newHashMap();
+
+    /**
+     * 需要透传的header names
+     */
+    private Set<String> headerNames;
 
     /**
      * 当前查询的缓存KEY
@@ -82,5 +88,13 @@ public class UserExecutionContext {
 
     public GraphqlSubscriber getSubscriber() {
         return subscriber;
+    }
+
+    public Set<String> getHeaderNames() {
+        return headerNames;
+    }
+
+    public void setHeaderNames(Set<String> headerNames) {
+        this.headerNames = headerNames;
     }
 }

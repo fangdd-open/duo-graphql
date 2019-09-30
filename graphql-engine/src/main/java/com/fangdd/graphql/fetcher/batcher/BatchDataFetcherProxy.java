@@ -5,12 +5,14 @@ import com.fangdd.graphql.core.exception.GraphqlInvocationException;
 import com.fangdd.graphql.provider.dto.BatchResponse;
 import com.fangdd.graphql.provider.dto.TpDocGraphqlProviderServiceInfo;
 import com.fangdd.graphql.provider.dto.provider.Api;
+import com.fangdd.graphql.provider.dto.provider.EntityRef;
 import com.fangdd.graphql.register.JsonService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,11 +58,31 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
             }
             processRefIdsMergeResponseData((List) data);
         } else {
-            if (!Map.class.isInstance(data)) {
+            if (Map.class.isInstance(data)) {
+                //BatchResponse
+                processNormalResponseData((Map<String, List<Object>>) data);
+            } else if (Collection.class.isInstance(data) && isIdsProviderResp()) {
+                EntityRef idPram = this.api.getRequestParams().get(0);
+                String paramName = idPram.getName();
+                List<Object> ids = this.getParams().get(paramName);
+
+                //用于存储id与实体的映射关系
+                Map<Object, Object> idMap = setIdMap((Collection) data);
+                List<Object> orderedList = Lists.newArrayList();
+                if (!CollectionUtils.isEmpty(ids)) {
+                    ids.forEach(id -> orderedList.add(idMap.get(id)));
+                }
+                processListData(orderedList);
+            } else {
                 throw new GraphqlInvocationException("批量加载数据响应值错误，响应值必须是" + BatchResponse.class.getName() + "类型！当前响应：" + jsonStr);
             }
-            processNormalResponseData((Map<String, List<Object>>) data);
         }
+    }
+
+    private boolean isIdsProviderResp() {
+        boolean idProvider = api.getIdProvider() != null && api.getIdProvider();
+        boolean isBatch = api.getBatchProvider() != null && api.getBatchProvider();
+        return idProvider && isBatch;
     }
 
     private void processRefIdsMergeResponseData(List data) {
@@ -79,7 +101,7 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
         });
     }
 
-    private Map<Object, Object> setIdMap(List data) {
+    private Map<Object, Object> setIdMap(Collection data) {
         if (CollectionUtils.isEmpty(data)) {
             return Maps.newHashMap();
         }
@@ -93,7 +115,11 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
     }
 
     private void processNormalResponseData(Map<String, List<Object>> batchResponse) {
-        batchDataList = batchResponse.get(DATA);
+        processListData(batchResponse.get(DATA));
+    }
+
+    private void processListData(List<Object> listData) {
+        batchDataList = listData;
         if (batchDataList != null && batchDataList.size() != getBatchSize()) {
             throw new GraphqlInvocationException("批量加载返回数据异常，批量数据量(" + batchDataList.size() + ")必须与请求量(" + getBatchSize() + ")一致！");
         }
@@ -111,6 +137,7 @@ public class BatchDataFetcherProxy extends BaseBatchLoader {
         }
         return batchDataList.get(index);
     }
+
     /**
      * 设置当前服务端信息
      *

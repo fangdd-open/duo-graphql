@@ -6,16 +6,11 @@ import java.util.List;
  * @author xuwenzhen
  * @date 2019/5/14
  */
-public class Api implements Comparable<Api> {
+public class Api {
     /**
      * API编码，即{className}.{methodName}
      */
     private String code;
-
-    /**
-     * API编码，全局唯一
-     */
-    private String key;
 
     /**
      * 接口类型：0=RestFul, 1=Dubbo
@@ -28,19 +23,9 @@ public class Api implements Comparable<Api> {
     private String name;
 
     /**
-     * 接口版本
-     */
-    private String version;
-
-    /**
      * 注释
      */
     private String comment;
-
-    /**
-     * since注释
-     */
-    private String since;
 
     /**
      * author注释
@@ -73,16 +58,6 @@ public class Api implements Comparable<Api> {
     private List<EntityRef> requestParams;
 
     /**
-     * Dubbo接口客户端包的坐标信息，Dubbo接口时有值
-     */
-    private Artifact artifact;
-
-    /**
-     * 排序值，越小越前
-     */
-    private Integer order;
-
-    /**
      * 模块名称
      *
      * @demo agent
@@ -98,6 +73,11 @@ public class Api implements Comparable<Api> {
      * 是否批量接口，与上面的providerName配套使用
      */
     private Boolean batchProvider;
+
+    /**
+     * 是否是通过idProider
+     */
+    private Boolean idProvider;
 
     /**
      * batchProvider=true时，多个ID的串连字符
@@ -118,14 +98,6 @@ public class Api implements Comparable<Api> {
         this.code = code;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
     public String getName() {
         return name;
     }
@@ -134,28 +106,12 @@ public class Api implements Comparable<Api> {
         this.name = name;
     }
 
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
     public String getComment() {
         return comment;
     }
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public String getSince() {
-        return since;
-    }
-
-    public void setSince(String since) {
-        this.since = since;
     }
 
     public String getAuthor() {
@@ -214,22 +170,6 @@ public class Api implements Comparable<Api> {
         this.type = type;
     }
 
-    public void setArtifact(Artifact artifact) {
-        this.artifact = artifact;
-    }
-
-    public Artifact getArtifact() {
-        return artifact;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
-
     public String getModuleName() {
         return moduleName;
     }
@@ -270,9 +210,12 @@ public class Api implements Comparable<Api> {
         this.graphqlJson = graphqlJson;
     }
 
-    @Override
-    public int compareTo(Api o) {
-        return this.order - o.order;
+    public Boolean getIdProvider() {
+        return idProvider;
+    }
+
+    public void setIdProvider(Boolean idProvider) {
+        this.idProvider = idProvider;
     }
 
     @Override

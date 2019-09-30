@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.fangdd.graphql</groupId>
         <artifactId>graphql-parent</artifactId>
-        <version>1.4.4</version>
+        <version>1.4.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>graphql-provider-tpdoc-base-rest</artifactId>

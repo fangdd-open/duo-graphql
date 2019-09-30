@@ -3,6 +3,7 @@ package com.fangdd.graphql.pipeline;
 import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.GraphqlModuleContext;
 import com.fangdd.graphql.core.exception.GraphqlBuildException;
+import com.fangdd.graphql.core.util.ApiUtils;
 import com.fangdd.graphql.core.util.GraphqlContextUtils;
 import com.fangdd.graphql.fetcher.DataFetcherProxy;
 import com.fangdd.graphql.provider.BaseDataFetcher;
@@ -217,11 +218,22 @@ public class RegistryState {
         if (idProviderApi == null) {
             return;
         }
+        idProviderApi.setIdProvider(true);
 
         String idsProvider = model.getIdsProvider();
         Api idsProviderApi = null;
         if (!StringUtils.isEmpty(idsProvider)) {
             idsProviderApi = apiMap.get(idsProvider);
+        }
+        if (idsProviderApi != null) {
+            idsProviderApi.setBatchProvider(true);
+            idsProviderApi.setIdProvider(true);
+
+            //推入以idProvide命名的批量接口
+            String idsApiName = GraphqlConsts.STR_AT + ApiUtils.getApiName(idProviderApi) + GraphqlConsts.STR_EXCLAMATION;
+            if (!apiMap.containsKey(idsApiName)) {
+                apiMap.put(idsApiName, idsProviderApi);
+            }
         }
 
         for (String refId : refIds) {
@@ -236,12 +248,19 @@ public class RegistryState {
             idDataFetcher.addExtraSelection(GraphqlConsts.STR_ID.toLowerCase(), refId);
             idDataFetcher.setGraphqlProviderName(providerName);
             dataFetcherMap.put(providerName, idDataFetcher);
+            //推入idProvider接口
             apiMap.put(providerName, idProviderApi);
 
             if (idsProviderApi == null) {
                 return;
             }
-            idsProviderApi.setBatchProvider(true);
+
+            //推入以idProvide命名的批量接口
+            String refIdBatchName = providerName + GraphqlConsts.STR_EXCLAMATION;
+            if (!apiMap.containsKey(refIdBatchName)) {
+                apiMap.put(refIdBatchName, idsProviderApi);
+            }
+
             DataFetcherProxy idsDataFetcher = new DataFetcherProxy(idsProviderApi, provider);
             idsDataFetcher.setDependencyFields(Lists.newArrayList(refId + GraphqlConsts.STR_S));
             idsDataFetcher.addExtraSelection(GraphqlConsts.STR_IDS, refId + GraphqlConsts.STR_S);
@@ -256,13 +275,15 @@ public class RegistryState {
             dataFetcherMap.put(providerName, idsDataFetcher);
             apiMap.put(providerName, idsProviderApi);
         }
+
+
     }
 
     private void setApi(String moduleName, Api api) {
         api.setModuleName(moduleName);
         String apiCode = api.getCode();
         Api existsApi = apiMap.get(apiCode);
-        if (existsApi != null) {
+        if (existsApi != null && existsApi != api) {
             throw new GraphqlBuildException("重复方法签名:" + existsApi + GraphqlConsts.STR_COMMA + api);
         }
 

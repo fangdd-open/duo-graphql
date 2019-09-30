@@ -66,6 +66,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
     @Override
     public void fetchData() {
         countDownLatch = new CountDownLatch(1);
+
         try {
             batchRequest();
         } finally {
@@ -99,7 +100,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
                 }
             }
 
-            if (paramValues == null && param.isRequired()) {
+            if (CollectionUtils.isEmpty(paramValues) && param.isRequired()) {
                 //如果为null时，不必发起请求
                 paramReady[0] = false;
                 return;
@@ -114,6 +115,7 @@ public abstract class BaseBatchLoader extends DataFetcherProxy implements BatchL
                 //如果是个列表 或 字符串时
                 paramMap.put(name, getParamValues(paramValues));
                 if (paramValues != null) {
+                    //FIXME 这个实现不太好，需要用其它方法判断
                     int size = paramValues.size();
                     if (size > batchSize[0]) {
                         batchSize[0] = size;

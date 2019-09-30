@@ -3,6 +3,7 @@ package com.fangdd.graphql.pipeline.impl;
 import com.fangdd.graphql.core.GraphqlConsts;
 import com.fangdd.graphql.core.GraphqlModuleContext;
 import com.fangdd.graphql.core.exception.GraphqlBuildException;
+import com.fangdd.graphql.core.util.ApiUtils;
 import com.fangdd.graphql.core.util.GraphqlTypeUtils;
 import com.fangdd.graphql.fetcher.DataFetcherProxy;
 import com.fangdd.graphql.pipeline.Pipeline;
@@ -84,7 +85,7 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
      */
     private void buildApiGraphQLFieldDefinition(RegistryState registryState, GraphqlModuleContext moduleContext, Api api) {
         //接口名称（取方法名）
-        String apiName = getModuleApiName(api);
+        String apiName = ApiUtils.getApiName(api);
         GraphQLType responseType;
         if (api.getGraphqlJson() != null && api.getGraphqlJson()) {
             //被标识为 @GraphqlJson时
@@ -348,12 +349,5 @@ public class ProviderSchemaBuildPipeline implements Pipeline {
     }
 
 
-    private String getModuleApiName(Api api) {
-        String code = api.getCode();
-        int index = code.lastIndexOf(GraphqlConsts.CHAR_DOT);
-        if (index != -1) {
-            code = code.substring(index + 1);
-        }
-        return code;
-    }
+
 }
