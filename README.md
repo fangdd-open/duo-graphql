@@ -24,7 +24,7 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 本项目是在spring boot上开发的，引擎和Provider都建议使用spring boot 2.x版本。
 
-![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg){:class="img-responsive"}
+<img src="https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg" title="Duo-GraphQL框架图"/>
 
 至少需要两部分服务：GraphQL Engine和GraphQL Provider。搭建文档详见下面两个链接：
 
