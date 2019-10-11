@@ -205,7 +205,7 @@ spring.redis.readTimeout=2000
 
 
 
-目前为止，引擎需要的所有工作都已经完成了，可以尝试启动。如果没有接入GraphQL Provider时，转变Schema会是：
+目前为止，引擎需要的所有工作都已经完成了，可以尝试启动。如果没有接入GraphQL Provider时，生成的Schema会是这样：
 
 ```graphql
 type Query {
@@ -213,3 +213,8 @@ type Query {
 }
 ```
 
+推荐使用Chrome的扩展程序`Altair GraphQL Client`，打开GraphQL引擎地址：`http://127.0.0.1:12345/graphql`
+
+
+
+如果你已经完成了引擎的搭建，可以开始GraphQL Provider的搭建，详见《[GraphQL-Provider-Getting-Start](./GraphQL-Provider-Getting-Start.md)》

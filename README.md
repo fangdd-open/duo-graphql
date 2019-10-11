@@ -28,7 +28,7 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 ![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg)
 
-https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg
+（上面图片地址：https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg）
 
 
 
@@ -40,4 +40,5 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 
 
 
-以上getting start里的代码，请查看当前项目的目录(/demo)[./demo]
+以上getting start里的代码，请查看当前项目的目录[/demo](./demo)
+
