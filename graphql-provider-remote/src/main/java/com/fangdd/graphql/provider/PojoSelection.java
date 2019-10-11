@@ -8,9 +8,20 @@ import java.util.Map;
  * @date 2019/7/1
  */
 public class PojoSelection {
+    /**
+     * 当前类名
+     */
     private String className;
 
+    /**
+     * 有变动的字段
+     * 原字段=>转换后的字段
+     */
     private Map<String, String> fieldMap = new HashMap<>(16);
+
+    /**
+     * 当前类包含的直接下级
+     */
     private Map<String, PojoSelection> fieldSelectionMap = new HashMap<>(16);
 
     public PojoSelection(String className) {
@@ -29,6 +40,18 @@ public class PojoSelection {
         if (pojoSelection == null || pojoSelection.fieldMap.isEmpty()) {
             return;
         }
+        fieldMap.putAll(pojoSelection.fieldMap);
+        fieldSelectionMap.putAll(pojoSelection.fieldSelectionMap);
+    }
+
+    public void appendChildren(String filedName, PojoSelection pojoSelection) {
+        if (pojoSelection == null || pojoSelection.fieldMap.isEmpty()) {
+            return;
+        }
+        String aliasedFieldName = fieldMap.computeIfAbsent(filedName, fn -> fn);
+        pojoSelection.fieldMap.entrySet().forEach(
+                entry -> fieldMap.put(filedName + "." + entry.getKey(), aliasedFieldName + "." + entry.getValue())
+        );
         fieldMap.putAll(pojoSelection.fieldMap);
     }
 

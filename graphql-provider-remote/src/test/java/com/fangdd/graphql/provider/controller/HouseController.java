@@ -1,9 +1,7 @@
 package com.fangdd.graphql.provider.controller;
 
 import com.fangdd.graphql.provider.annotation.GraphqlModule;
-import com.fangdd.graphql.provider.dto.House;
-import com.fangdd.graphql.provider.dto.Pagination;
-import com.fangdd.graphql.provider.dto.Trade;
+import com.fangdd.graphql.provider.dto.*;
 
 import java.util.List;
 
@@ -20,12 +18,16 @@ public class HouseController {
         return null;
     }
 
-    public Pagination<House, Integer> test2() {
+    public Pagination<House> test2() {
         return null;
     }
 
 
-    public Pagination<Trade, Integer> tradeSearch() {
+    public Pagination<Trade> tradeSearch() {
+        return null;
+    }
+
+    public AggregatePagination<Estate> test3() {
         return null;
     }
 }

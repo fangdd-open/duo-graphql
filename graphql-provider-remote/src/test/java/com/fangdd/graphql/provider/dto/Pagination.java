@@ -1,6 +1,5 @@
 package com.fangdd.graphql.provider.dto;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +7,7 @@ import java.util.List;
  *
  * @author xuwenzhen
  */
-public class Pagination<T extends Serializable, E> {
+public class Pagination<T> {
     /**
      * 结果列表
      */

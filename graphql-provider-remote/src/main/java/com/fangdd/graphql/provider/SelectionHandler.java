@@ -118,7 +118,7 @@ public class SelectionHandler {
     }
 
     private static PojoSelection analyseType(Type type) {
-        PojoSelection pojoSelection = TYPE_POJO_SELECTION_MAP.get(type);
+        PojoSelection pojoSelection = TYPE_POJO_SELECTION_MAP.get(type.getTypeName());
         if (pojoSelection != null) {
             return pojoSelection;
         }
@@ -239,6 +239,9 @@ public class SelectionHandler {
 
         Field[] fs = clazz.getDeclaredFields();
         for (Field field : fs) {
+            if ((field.getModifiers() & Modifier.STATIC) == Modifier.STATIC) {
+                continue;
+            }
             Class<?> fieldType = field.getType();
             PojoSelection fieldSelection = null;
             if (Collection.class.isAssignableFrom(fieldType)) {
@@ -255,7 +258,7 @@ public class SelectionHandler {
                 }
             }
 
-            analyseField(field, pojoSelection);
+            analyseAliasedField(field, pojoSelection);
         }
 
         Class superClass = clazz.getSuperclass();
@@ -282,7 +285,7 @@ public class SelectionHandler {
         return sb.toString();
     }
 
-    private static void analyseField(Field field, PojoSelection pojoSelection) {
+    private static void analyseAliasedField(Field field, PojoSelection pojoSelection) {
         JsonAlias alias = field.getAnnotation(JsonAlias.class);
         String fieldName = field.getName();
         String newFieldName = fieldName;

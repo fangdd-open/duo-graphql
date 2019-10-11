@@ -144,6 +144,26 @@ public class SelectionHandlerTest {
     }
 
     @Test
+    public void getGeneric2Selections() throws Exception {
+        /*
+        list
+            id
+            metros
+                stationName
+         */
+        String selections = "list!.id!.metros!..stationName";
+
+        Method method = HouseController.class.getMethod("test3");
+        PojoSelection pojoSelection = SelectionHandler.analyseTypeMapping(method);
+        List<String> newSelections = SelectionHandler.getSelections(pojoSelection, selections, "list");
+
+        Assert.assertNotNull(newSelections);
+        Assert.assertEquals("cp_estate_id", newSelections.get(0));
+        Assert.assertEquals("transportation.metro_detail.station_name", newSelections.get(1));
+        newSelections.forEach(System.out::println);
+    }
+
+    @Test
     public void objectMapperSerial() {
         String json = "{\"houseName\": \"楼盘名称\", \"cityId\": 1337, \"houseFlat\": {\"id\": 23445}}";
         ObjectMapper objectMapper = getObjectMapper();
