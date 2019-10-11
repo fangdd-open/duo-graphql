@@ -115,10 +115,10 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
 
 ```java
 @EnableWebMvc
-@SpringBootApplication(scanBasePackages = "com.fangdd")
+@SpringBootApplication(scanBasePackages = "com.fangdd") //Spring启动时需要扫描的包名
 public class GraphqlEngineApplication {
     public static void main(String[] args) {
-        new SpringApplication(RedisRegistryGraphqlApplication.class).run(args);
+        new SpringApplication(GraphqlEngineApplication.class).run(args);
     }
 }
 ```
@@ -142,12 +142,15 @@ graphql.url = graphql
 #注册中心默认路径，如果是使用redis时，即为redis的keys前缀
 fdd.graphql.register.root = graphql-dev
 
-#需要透传到各服务的请求头，下面的请求头，会透传给各GraphQL Provider，引擎本身不做鉴权工作，而是交给各Provider实现，多个使用半角逗号分隔
+## 需要透传到各服务的请求头，下面的请求头，会透传给各GraphQL Provider
+## 引擎本身不做鉴权工作，而是交给各Provider实现，多个使用半角逗号分隔
 graphql.query.headers = user-id,client,trace-id
 
-## 指定各GraphQL Provider数据提供端的服务地址（如果未指定，则使用各服务里配置的地址），本配置主要用于多个GraphQL Provider时，本地开发一般不会全开，其它服务可以指向开发服务器或测试服务器
-#graphql.provider.providerService[house.graphql.cp.fdd]=http://test-mesh.fangdd.net
-#graphql.provider.providerService[agent.graphql.cp.fdd]=http://test-mesh.fangdd.net
+## 指定各GraphQL Provider数据提供端的服务地址（如果未指定，则使用各服务里配置的地址）
+## 本配置主要用于多个GraphQL Provider场景，在本地开发时，可以只启动你正在开发或调试的服务
+## 其它GraphQL Provider服务可以指向开发服务器或测试服务器
+#graphql.provider.providerService[user.graphql.cp.fdd]=http://127.0.0.1:12347
+#graphql.provider.providerService[article.graphql.cp.fdd]=http://127.0.0.1:12348
 
 ## 多个Schema时，指定url路由与schema的关系，GraphQL Provider未指定时，默认是注册到default
 graphql.provider.urlSchemaMap[/graphql]=default
@@ -180,13 +183,33 @@ spring.redis.readTimeout=2000
 
 
 
+## 五、logback.xml
+
+```xml
+<!-- 这里只是演示的配置，直接输出到控制台，生产环境不要用这配置！！ -->
+<configuration scan="true" scanPeriod="2 seconds">
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} %X{_timestamp_}  [%thread] %-5level %logger{36} %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+```
+
+
+
 目前为止，引擎需要的所有工作都已经完成了，可以尝试启动。如果没有接入GraphQL Provider时，转变Schema会是：
 
 ```graphql
-{
-  Query {
-  	hello: String
-	}
+type Query {
+  hello: String
 }
 ```
 

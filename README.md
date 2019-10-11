@@ -28,8 +28,16 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 ![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg)
 
+https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg
+
+
+
 至少需要两部分服务：GraphQL Engine和GraphQL Provider。搭建文档详见下面两个链接：
 
 GraphQL Engine：《[GraphQL-Engine-Getting-Start](./doc/GraphQL-Engine-Getting-Start.md)》
 
 GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Getting-Start.md)》
+
+
+
+以上getting start里的代码，请查看当前项目的目录(/demo)[./demo]
