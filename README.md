@@ -14,7 +14,9 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 6. 自定义指令支持，只需要实现接口`com.fangdd.graphql.directive.BaseGraphqlDirectiveFactory`，不需要直接面对GraphQL规则。
 
-    
+7. 一个GraphQL Provider工程支持多个领域。本功能用于领域过小，还不需要单独一个项目时使用。另外支持向其它领域服务注入字段。比如在文章领域向用户领域注入userArticles字段等。
+
+     
 
 感谢graphql-java项目，写得真不错，得以在后续的扩展中得以实现
 
@@ -24,14 +26,10 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 本项目是在spring boot上开发的，引擎和Provider都建议使用spring boot 2.x版本。
 
-<img src="https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg" title="Duo-GraphQL框架图"/>
+![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg)
 
 至少需要两部分服务：GraphQL Engine和GraphQL Provider。搭建文档详见下面两个链接：
 
 GraphQL Engine：《[GraphQL-Engine-Getting-Start](./doc/GraphQL-Engine-Getting-Start.md)》
 
 GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Getting-Start.md)》
-
-
-
-- ### 

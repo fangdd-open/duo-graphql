@@ -98,7 +98,112 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
 
 
 
-## 三、创建启动类
+## 三、添加Duo-Doc api.json生成
+
+```xml
+<build>
+  <finalName>${project.artifactId}</finalName>
+
+  <plugins>
+    <!-- 用于读取git信息 -->
+    <plugin>
+      <groupId>pl.project13.maven</groupId>
+      <artifactId>git-commit-id-plugin</artifactId>
+      <version>2.2.4</version>
+      <executions>
+        <execution>
+          <id>get-the-git-infos</id>
+          <goals>
+            <goal>revision</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+        <prefix>git</prefix>
+        <verbose>false</verbose>
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
+        </generateGitPropertiesFilename>
+        <format>json</format>
+        <gitDescribe>
+          <skip>false</skip>
+          <always>false</always>
+          <dirty>-dirty</dirty>
+        </gitDescribe>
+      </configuration>
+    </plugin>
+
+    <!-- 重要！Duo-Doc，通过解析源码、注释自动生成接口信息 -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>2.10.3</version>
+      <configuration>
+        <doclet>com.fangdd.tp.doclet.TpDoclet</doclet>
+        <docletArtifact>
+          <groupId>com.fangdd</groupId>
+          <artifactId>doclet</artifactId>
+          <version>1.0.0</version>
+        </docletArtifact>
+        <sourcepath>
+          <!-- 指定源码路径，如果多个模块，需要包含进去 -->
+          ${project.basedir}/src/main/java
+        </sourcepath>
+        <useStandardDocletOptions>false</useStandardDocletOptions>
+
+        <additionalJOptions>
+          <additionalJOption>-J-Dbasedir=${project.basedir}</additionalJOption>
+          <!-- FDD Provider必须添加commitId，否则无法确定版本 -->
+          <additionalJOption>-J-DcommitId=${git.commit.id}</additionalJOption>
+          <!-- appID，指定了appId后，会替换成当前文档的名称 -->
+          <additionalJOption>-J-DappId=${docker.project.id}</additionalJOption>
+          <additionalJOption>-J-Dexporter=graphql</additionalJOption>
+          <additionalJOption>-J-DoutputDirectory=${project.build.outputDirectory}</additionalJOption>
+        </additionalJOptions>
+      </configuration>
+      <executions>
+        <execution>
+          <id>attach-javadocs</id>
+          <!-- package可以在提交代码后由CI自动触发，如果不需要自动触发，可以设置为site，届时需要手工执行：mvn clean site -->
+          <phase>compile</phase>
+          <goals>
+            <goal>javadoc</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>2.0.2</version>
+      <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <encoding>UTF-8</encoding>
+      </configuration>
+    </plugin>
+
+    <plugin>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-maven-plugin</artifactId>
+      <version>2.1.3.RELEASE</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>repackage</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+```
+
+
+
+## 四、创建启动类
 
 ```java
 @EnableWebMvc
@@ -112,7 +217,7 @@ public class GraphqlProviderApplication {
 
 
 
-## 四、配置
+## 五、配置
 
 ```bash
 #服务端口号
@@ -157,7 +262,7 @@ spring.redis.readTimeout=2000
 
 
 
-## 五、添加RESTful API
+## 六、添加RESTful API
 
 在开始之前，先明确一下几个概念：
 
@@ -319,7 +424,7 @@ public class ArticleController {
 
 以上代码会生成以下Schema，所有实体都会自动添加上领域名称的前缀
 
-```json
+```graphql
 {
   Query {
   	article: Article {
