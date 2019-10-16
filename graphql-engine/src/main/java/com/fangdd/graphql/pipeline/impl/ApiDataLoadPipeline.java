@@ -38,7 +38,7 @@ public class ApiDataLoadPipeline implements Pipeline {
         providers.forEach(provider -> {
             //拉接口文档的服务
             CompletableFuture<ProviderApiDto> providerApiFuture = CompletableFuture.supplyAsync(
-                    //从TP-DOC服务中拉取文档数据
+                    //从Duo-Doc服务中拉取文档数据
                     () -> tpdocService.fetchDocData(provider.getAppId(), provider.getVcsId(), null)
             );
             futures.add(providerApiFuture);
@@ -54,7 +54,7 @@ public class ApiDataLoadPipeline implements Pipeline {
             try {
                 providerApi = future.get();
             } catch (Exception e) {
-                throw new GraphqlBuildException("get provider api info from tp-doc error", e);
+                throw new GraphqlBuildException("get provider api info from Duo-Doc error", e);
             }
             if (providerApi == null) {
                 continue;

@@ -21,8 +21,8 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
   <spring.version>5.1.5.RELEASE</spring.version>
   <graphql-java.version>13.0</graphql-java.version>
   <jedis.version>2.9.0</jedis.version>
-  <duo-graphql.version>1.4.1-SNAPSHOT</duo-graphql.version>
-  <jackson-databind.version>[2.9.10,)</jackson-databind.version>
+	<duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
+  <jackson-databind.version>2.9.9.3</jackson-databind.version>
 </properties>
 ```
 
@@ -95,7 +95,7 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
   <version>${duo-graphql.version}</version>
 </dependency>
 
-<!-- 本Spring boot自带版本存在严重安全漏洞，需要使用2.9.10及以上版本 -->
+<!-- 本Spring boot自带版本存在严重安全漏洞，需要指定版本 -->
 <dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
   <artifactId>jackson-databind</artifactId>
@@ -115,7 +115,7 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
 
 ```java
 @EnableWebMvc
-@SpringBootApplication(scanBasePackages = "com.fangdd") //Spring启动时需要扫描的包名
+@SpringBootApplication(scanBasePackages = "com.duoec") //Spring启动时需要扫描的包名
 public class GraphqlEngineApplication {
     public static void main(String[] args) {
         new SpringApplication(GraphqlEngineApplication.class).run(args);

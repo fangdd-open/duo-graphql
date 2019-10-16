@@ -1,18 +1,11 @@
 package com.duoec.graphql.dto.req;
 
-import java.util.List;
-
 /**
  *
  * @author xuwenzhen
  * @date 2019/10/12
  */
 public class ArticleQuery {
-    /**
-     * 需要查询的文章IDs
-     */
-    private List<Integer> ids;
-
     /**
      * 搜索关键词
      */
@@ -29,14 +22,6 @@ public class ArticleQuery {
      * @required
      */
     private Integer pageSize;
-
-    public List<Integer> getIds() {
-        return ids;
-    }
-
-    public void setIds(List<Integer> ids) {
-        this.ids = ids;
-    }
 
     public String getKeyword() {
         return keyword;

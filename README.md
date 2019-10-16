@@ -1,5 +1,7 @@
 # Duo-GraphQL
 
+## <span style="color: #FF9900">※ Duo-GraphQL介绍</span>
+
 Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的扩展，用于支持当前主流的多团队微服务敏捷开发模式。它主要实现了以下功能：
 
 1. Schema、Resolver（DataFetcher）自动生成绑定，不依靠人工。
@@ -8,7 +10,7 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 3. 一个引擎支持多Schema。默认会有两个：业务Schema、当前GraphQL状态Schema。
 
-4. 实现三大类DataProvider：innerProvider / remoteProvider / tpdocProvider，分别对应常用的固定少变的基础领域服务、复杂多变的业务领域服务和旧的RESTful领域服务接入。
+4. 实现三大类DataProvider：`innerProvider` / remoteProvider / tpdocProvider，分别对应常用的固定少变的基础领域服务、复杂多变的业务领域服务和旧的RESTful领域服务接入。
 
 5. 做了大量性能优化，任务编排，请求合并等工作，最大限度的提高性能。最新统计近7天的服务SLA:100%，响应95线:20.3ms，99.9线:65.3ms。
 
@@ -22,15 +24,17 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 
 
-- ### Getting Started
+## <span style="color: #FF9900">※ Duo-GraphQL架构</span>
 
-本项目是在spring boot上开发的，引擎和Provider都建议使用spring boot 2.x版本。
-
-![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg)
+![Duo-GraphQL框架图](./assets/GraphQL-framework.jpg)
 
 （上面图片地址：https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg）
 
 
+
+## <span style="color: #FF9900">※ Getting Start</span>
+
+>  本项目是在`spring boot`上开发的，引擎和`Provider`都建议使用`spring boot 2.x`版本
 
 至少需要两部分服务：GraphQL Engine和GraphQL Provider。搭建文档详见下面两个链接：
 
@@ -40,5 +44,59 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 
 
 
-以上getting start里的代码，请查看当前项目的目录[/demo](./demo)
+以上getting start里的代码，请查看当前项目的目录 [/demo](./demo)
+
+
+
+## <span style="color: #FF9900">※ 文档中心</span>
+
+### 一、引擎端: GraphQL-Engine
+
+1. 请求头透传
+2. 添加监控
+3. 自定义请求上下文
+4. 自定义指令: Directive
+5. 订阅: Subscription
+6. ScalarJson
+7. Redis订阅
+8. 分布式部署
+9. Schema构建
+10. 异常处理
+11. GraphLQ Provider
+    1. 远端数据供应端: RemoteProvider
+    2. 内部数据供应端: InnerProvider
+    3. 旧RESTful接口接入
+12. 合并请求
+13. 多GraphQL Schema实现
+14. 注册中心
+    1. 使用Zookeeper注册中心
+    2. 使用Redis注册中心
+15. 依赖Duo-Doc服务
+16. 权限控制
+17. gql查询缓存
+18. 开发期间设置GraphQL Provider请求地址
+19. Redis配置
+20. Mock & GraphiQL
+21. Mesh Service支持
+22. SkyWalking探针
+
+
+
+### 二、数据供应端: GraphQL-Provider
+
+1. 视图
+   1. 基础视图
+   2. 非基础视图
+2. [选择字段: Selection](./doc/selection.md)
+3. GraphQL操作实现
+   1. 实现Query
+   2. 实现Mutation
+   3. 实现Subscription
+4. 批量接口
+5. 一个GraphQL Provider提供多个领域服务
+6. 向其它领域图（Type）注入字段
+7. 字段映射
+8. 生成api.json
+
+
 

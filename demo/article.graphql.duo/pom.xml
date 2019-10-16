@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.duoec.graphql</groupId>
-    <artifactId>user.graphql.duo</artifactId>
+    <artifactId>article.graphql.duo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
@@ -28,15 +28,15 @@
         <spring.version>5.1.5.RELEASE</spring.version>
         <graphql-java.version>13.0</graphql-java.version>
         <jedis.version>2.9.0</jedis.version>
-        <duo-graphql.version>1.4.4</duo-graphql.version>
-        <jackson-databind.version>[2.9.10,)</jackson-databind.version>
+        <duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
+        <jackson-databind.version>2.9.9.3</jackson-databind.version>
 
         <!--
         当前服务的ID，必须与当前项目的配置：spring.application.name一致
         也与引擎配置服务里面的配置一致
-        graphql.provider.providerService[user.graphql.duo]=http://127.0.0.1:12347
+        graphql.provider.providerService[article.graphql.duo]=http://127.0.0.1:12347
          -->
-        <docker.project.id>user.graphql.duo</docker.project.id>
+        <docker.project.id>article.graphql.duo</docker.project.id>
     </properties>
 
     <dependencies>
@@ -66,6 +66,27 @@
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-provider-remote-redis</artifactId>
             <version>${duo-graphql.version}</version>
+        </dependency>
+
+
+        <!-- 测试包 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+            <version>${spring-boot.version}</version>
         </dependency>
     </dependencies>
 

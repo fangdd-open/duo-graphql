@@ -6,6 +6,10 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
 
 
 
+如果你还没有完成Duo-GraphQL引擎搭建，请参考：《[GraphQL-Engine-Getting-Start](./GraphQL-Engine-Getting-Start.md)》
+
+
+
 ## 一、定义一些变量（可选）
 
 ```xml
@@ -23,12 +27,12 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
   <spring.version>5.1.5.RELEASE</spring.version>
   <graphql-java.version>13.0</graphql-java.version>
   <jedis.version>2.9.0</jedis.version>
-  <duo-graphql.version>1.4.4</duo-graphql.version>
-  <jackson-databind.version>[2.9.10,)</jackson-databind.version>
+  <duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
+  <jackson-databind.version>2.9.9.3</jackson-databind.version>
   <!--
   当前服务的ID
   即是引擎配置里面的
-  graphql.provider.providerService[user.graphql.duo]=http://127.0.0.1:12347
+  graphql.provider.providerService[article.graphql.duo]=http://127.0.0.1:12347
   -->
   <docker.project.id>user.graphql.duo</docker.project.id>
 </properties>
@@ -84,6 +88,7 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
     </exclusion>
   </exclusions>
 </dependency>
+<!-- 本Spring boot自带版本存在严重安全漏洞，需要指定版本 -->
 <dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
   <artifactId>jackson-databind</artifactId>
@@ -101,7 +106,6 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
   <artifactId>graphql-provider-remote-redis</artifactId>
   <version>${duo-graphql.version}</version>
 </dependency>
-
 ```
 
 
@@ -217,7 +221,7 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
 
 ```java
 @EnableWebMvc
-@SpringBootApplication(scanBasePackages = "com.fangdd")
+@SpringBootApplication(scanBasePackages = "com.duoec")
 public class GraphqlProviderApplication {
     public static void main(String[] args) {
         new SpringApplication(GraphqlProviderApplication.class).run(args);
@@ -237,7 +241,7 @@ server.port=12347
 application.server=http://127.0.0.1:12347
 
 ## spring服务名称
-spring.application.name=user.graphql.duo
+spring.application.name=article.graphql.duo
 
 ## 当前Graphql Provider负责的领域名称，建议以小写字母开头，使用驼峰命名规则
 graphql.schema.module=article
@@ -497,7 +501,7 @@ mvn clean package -Dmaven.test.skip=true
 
 
 
-此时，用Chrome的扩展程序Altair GraphQL Client打开地址：`http://127.0.0.1:12345/graphql`
+此时，用Chrome的扩展程序`Altair GraphQL Client`打开地址：`http://127.0.0.1:12345/graphql`
 
 可以看到已经更新了文章，会生成以下Schema，所有实体都会自动添加上领域名称的前缀
 
@@ -621,6 +625,5 @@ type Mutation {
 type Query {
   article: ARTICLE
 }
-
 ```
 

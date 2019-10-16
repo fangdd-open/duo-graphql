@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TP-DOC项目的接入请求
+ * Duo-Doc项目的接入请求
  *
  * @author xuwenzhen
  * @date 2019/4/16

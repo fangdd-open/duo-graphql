@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fangdd.graphql.core.config.AsyncExecutor, \
+  com.fangdd.graphql.core.config.GraphqlInvocationConfigure, \
+  com.fangdd.graphql.core.config.GraphqlProviderConfigure, \
+  com.fangdd.graphql.core.config.OkHttpClientConfigure, \
+  com.fangdd.graphql.core.config.RedisMessageConfigure, \
+  com.fangdd.graphql.core.config.UserExecutionContextFactoryConfigure, \
+  com.fangdd.graphql.core.config.WebConfigure, \
+  com.fangdd.graphql.core.config.WebSocketConfig

@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>graphql-provider-remote-tpdoc</artifactId>
-    <description>这个项目是基于TP-DOC的供应端</description>
+    <description>这个项目是基于Duo-Doc的供应端</description>
 
     <dependencies>
         <!-- GraphQL供应商基类 -->

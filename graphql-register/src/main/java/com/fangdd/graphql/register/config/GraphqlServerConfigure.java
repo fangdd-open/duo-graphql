@@ -17,7 +17,7 @@ public class GraphqlServerConfigure {
     private String url;
 
     /**
-     * TP-DOC服务地址
+     * Duo-Doc服务地址
      */
     private String tpdocUrl;
 

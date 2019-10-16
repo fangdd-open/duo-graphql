@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fangdd.graphql.provider.redis.RedisBaseProviderConfigure, \
+  com.fangdd.graphql.provider.redis.RedisMessagePublisher

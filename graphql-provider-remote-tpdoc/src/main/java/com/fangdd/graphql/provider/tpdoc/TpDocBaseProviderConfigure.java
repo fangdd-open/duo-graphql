@@ -30,7 +30,7 @@ public class TpDocBaseProviderConfigure extends BaseProviderRegistry {
     private static final int HTTP_CODE_SUCCESS = 200;
 
     /**
-     * Graphql TP-DOC注册器地址
+     * Graphql Duo-Doc注册器地址
      *
      * @demo http://127.0.0.1:17040/api/register/tpdoc
      */

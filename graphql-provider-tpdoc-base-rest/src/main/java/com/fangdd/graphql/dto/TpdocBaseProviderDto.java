@@ -3,14 +3,14 @@ package com.fangdd.graphql.dto;
 import java.util.List;
 
 /**
- * 基于TP-DOC的远端接口信息
+ * 基于Duo-Doc的远端接口信息
  *
  * @author xuwenzhen
  * @date 2019/8/6
  */
 public class TpdocBaseProviderDto {
     /**
-     * appId，对应注册进TP-DOC时使用的appId
+     * appId，对应注册进Duo-Doc时使用的appId
      *
      * @demo m.web.cp.fdd
      */

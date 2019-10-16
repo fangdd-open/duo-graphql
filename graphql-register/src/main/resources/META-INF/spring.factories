@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fangdd.graphql.register.config.GraphqlRegisterConfigure, \
+  com.fangdd.graphql.register.config.GraphqlServerConfigure

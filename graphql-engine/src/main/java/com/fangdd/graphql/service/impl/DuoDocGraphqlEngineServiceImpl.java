@@ -43,14 +43,14 @@ import java.util.Set;
 import static graphql.Scalars.GraphQLString;
 
 /**
- * 基于TP-DOC的Graphql Provider注册实现
+ * 基于Duo-Doc的Graphql Provider注册实现
  *
  * @author xuwenzhen
  * @date 2019/4/9
  */
 @Service
-public class TpDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDocGraphqlProviderServiceInfo> {
-    private static final Logger logger = LoggerFactory.getLogger(TpDocGraphqlEngineServiceImpl.class);
+public class DuoDocGraphqlEngineServiceImpl implements GraphqlEngineService<TpDocGraphqlProviderServiceInfo> {
+    private static final Logger logger = LoggerFactory.getLogger(DuoDocGraphqlEngineServiceImpl.class);
 
     @Autowired
     private ApplicationContext applicationContext;

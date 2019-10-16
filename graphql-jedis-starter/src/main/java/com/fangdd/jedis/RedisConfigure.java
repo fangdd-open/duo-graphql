@@ -24,7 +24,6 @@ import java.time.Duration;
  * @date 2019/8/21
  */
 @Configuration
-@ConditionalOnBean(value = {RedisPropertiesConfigure.class})
 public class RedisConfigure {
     private static final String STR_SENTINEL = "sentinel";
     private static final String STR_STANDALONE = "standalone";

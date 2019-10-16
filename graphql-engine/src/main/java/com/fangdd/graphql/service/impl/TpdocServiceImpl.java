@@ -44,7 +44,7 @@ public class TpdocServiceImpl implements TpdocService {
     private GraphqlRegisterConfigure graphQLRegisterConfigure;
 
     /**
-     * 拉取TP-DOC上的配置
+     * 拉取Duo-Doc上的配置
      *
      * @param appId    appId
      * @param vcsId    版本号，如果为空时，取最新的

@@ -19,7 +19,7 @@ public class RegisterApiController {
     private GraphqlRegister<TpDocGraphqlProviderServiceInfo> graphqlRegister;
 
     /**
-     * 注册远端数据供应商（Tp-Doc项目）
+     * 注册远端数据供应商（Duo-Doc项目）
      *
      * @return
      */

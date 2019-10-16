@@ -3,7 +3,7 @@ package com.fangdd.graphql.dto;
 import java.util.List;
 
 /**
- * 基于TP-DOC的远端接口信息
+ * 基于Duo-Doc的远端接口信息
  *
  * @author xuwenzhen
  * @date 2019/8/6

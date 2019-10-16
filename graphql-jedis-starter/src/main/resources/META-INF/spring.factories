@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fangdd.jedis.RedisConfigure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.fangdd.jedis.RedisPropertiesConfigure, \
+  com.fangdd.jedis.RedisConfigure

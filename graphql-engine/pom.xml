@@ -37,7 +37,7 @@
         <dependency>
             <groupId>com.fangdd.graphql</groupId>
             <artifactId>graphql-jedis-starter</artifactId>
-            <version>1.4.5-SNAPSHOT</version>
+            <version>${duo-graphql.version}</version>
         </dependency>
 
         <dependency>

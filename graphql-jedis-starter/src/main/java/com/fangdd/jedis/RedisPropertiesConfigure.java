@@ -2,12 +2,15 @@ package com.fangdd.jedis;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 /**
  * @author xuwenzhen
  * @date 2019/8/21
  */
 @Configuration
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @ConfigurationProperties(prefix = "spring.redis")
 public class RedisPropertiesConfigure {
     /**
