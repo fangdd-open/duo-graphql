@@ -26,9 +26,9 @@ Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)的
 
 ## <span style="color: #FF9900">※ Duo-GraphQL架构</span>
 
-![Duo-GraphQL框架图](./assets/GraphQL-framework.jpg)
+![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FhIP4N6EHp4M4NE3VRzB-tzSIUvl.png)
 
-（上面图片地址：https://oss-public.fangdd.com/prod/static/FsaLdNehBzL3Q-0EmU95mz5gvmUc.jpg）
+（上面图片地址：https://oss-public.fangdd.com/prod/static/FhIP4N6EHp4M4NE3VRzB-tzSIUvl.png）
 
 
 
@@ -45,6 +45,8 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 
 
 以上getting start里的代码，请查看当前项目的目录 [/demo](./demo)
+
+
 
 
 
@@ -68,17 +70,18 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
     3. 旧RESTful接口接入
 12. 合并请求
 13. 多GraphQL Schema实现
-14. 注册中心
+14. GraphQL Engine调试
+15. 注册中心
     1. 使用Zookeeper注册中心
     2. 使用Redis注册中心
-15. 依赖Duo-Doc服务
-16. 权限控制
-17. gql查询缓存
-18. 开发期间设置GraphQL Provider请求地址
-19. Redis配置
-20. Mock & GraphiQL
-21. Mesh Service支持
-22. SkyWalking探针
+16. 依赖Duo-Doc服务
+17. 权限控制
+18. gql查询缓存
+19. 开发期间设置GraphQL Provider请求地址
+20. Redis配置
+21. Mock & GraphiQL
+22. Mesh Service支持
+23. SkyWalking探针
 
 
 
@@ -97,6 +100,7 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 6. 向其它领域图（Type）注入字段
 7. 字段映射
 8. 生成api.json
+9. GraphQL Provider服务调试
 
 
 

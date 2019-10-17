@@ -30,7 +30,7 @@
         <graphql-java.version>13.0</graphql-java.version>
         <jedis.version>2.9.0</jedis.version>
         <duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
-        <jackson-databind.version>2.9.9.3</jackson-databind.version>
+        <jackson-databind.version>2.9.10</jackson-databind.version>
     </properties>
 
     <dependencies>
@@ -61,7 +61,7 @@
             <version>${duo-graphql.version}</version>
         </dependency>
 
-        <!-- 本Spring boot自带版本存在严重安全漏洞，需要使用2.9.9.3及以上版本 -->
+        <!-- 本Spring boot自带版本存在严重安全漏洞，需要使用2.9.10及以上版本 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
