@@ -21,7 +21,7 @@ Duo-GraphQL引擎基于Spring Boot，建议使用2.x版本。本文档以maven�
   <spring.version>5.1.5.RELEASE</spring.version>
   <graphql-java.version>13.0</graphql-java.version>
   <jedis.version>2.9.0</jedis.version>
-	<duo-graphql.version>1.0.0</duo-graphql.version>
+	<duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
   <jackson-databind.version>2.9.9.3</jackson-databind.version>
 </properties>
 ```

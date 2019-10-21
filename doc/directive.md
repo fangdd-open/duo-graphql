@@ -1,20 +1,10 @@
-package com.fangdd.graphql.directive.factory;
+# 自定义指令：Directive
 
-import com.fangdd.graphql.core.exception.GraphqlBuildException;
-import com.fangdd.graphql.directive.BaseGraphqlDirectiveFactory;
-import com.google.common.collect.Lists;
-import graphql.introspection.Introspection;
-import graphql.schema.DataFetchingEnvironment;
-import graphql.schema.GraphQLArgument;
-import graphql.schema.GraphQLDirective;
-import graphql.schema.GraphQLNonNull;
-import org.springframework.stereotype.Service;
+Duo-GraphQL中实现自定义指令只需要实现接口：`com.fangdd.graphql.directive.BaseGraphqlDirectiveFactory`
 
-import java.util.List;
-import java.util.Map;
+以`com.fangdd.graphql.directive.factory.SubListDirectiveFactory`为例，包含了两部分内容：指令定义和指令执行。
 
-import static graphql.Scalars.GraphQLInt;
-
+```java
 /**
  * 获取列表中指定起始位置、指定大小的子集
  *
@@ -58,7 +48,11 @@ public class SubListDirectiveFactory extends BaseGraphqlDirectiveFactory {
      * @return 通过指令计算之后的值
      */
     @Override
-    public Object process(DataFetchingEnvironment environment, Object data, Map<String, Object> args) {
+    public Object process(
+      DataFetchingEnvironment environment, 
+      Object data, 
+      Map<String, Object> args
+    ) {
         if (data == null) {
             return null;
         }
@@ -82,3 +76,7 @@ public class SubListDirectiveFactory extends BaseGraphqlDirectiveFactory {
         return list.subList(skip, skip + size);
     }
 }
+```
+
+
+

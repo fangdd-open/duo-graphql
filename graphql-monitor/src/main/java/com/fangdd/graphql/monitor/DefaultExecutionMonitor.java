@@ -9,7 +9,6 @@ import graphql.GraphQL;
 import graphql.spring.web.servlet.GraphQLInvocationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.List;
  * @author xuwenzhen
  * @date 2019/8/16
  */
-@Service
 public class DefaultExecutionMonitor extends ExecutionMonitor {
     private static final Logger logger = LoggerFactory.getLogger(DefaultExecutionMonitor.class);
 

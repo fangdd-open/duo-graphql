@@ -16,14 +16,16 @@ import java.util.List;
  * @author xuwenzhen
  * @date 2019/8/16
  */
-public abstract class ExecutionMonitor extends SimpleInstrumentation {
+public class ExecutionMonitor extends SimpleInstrumentation {
     /**
      * 创建Execution缓存时调用
      *
      * @param cacheKey       缓存键值
      * @param executionInput 当前的请求
      */
-    public abstract void createExecutionCache(String cacheKey, ExecutionInput executionInput);
+    public void createExecutionCache(String cacheKey, ExecutionInput executionInput) {
+        // 供实现类重写
+    }
 
     /**
      * 构建Schema前被调用
@@ -31,7 +33,9 @@ public abstract class ExecutionMonitor extends SimpleInstrumentation {
      * @param schemaName   需要构建的模块名称
      * @param providerList 需要重新构建的模块
      */
-    public abstract void beforeSchemaBuild(String schemaName, List<TpDocGraphqlProviderServiceInfo> providerList);
+    public void beforeSchemaBuild(String schemaName, List<TpDocGraphqlProviderServiceInfo> providerList) {
+        // 供实现类重写
+    }
 
     /**
      * 构建Schema，完成RegistryState构建完成时调用
@@ -39,7 +43,9 @@ public abstract class ExecutionMonitor extends SimpleInstrumentation {
      * @param providerList  当前构建的Provider
      * @param registryState 构建好的RegistryState
      */
-    public abstract void onStateBuild(List<TpDocGraphqlProviderServiceInfo> providerList, RegistryState registryState);
+    public void onStateBuild(List<TpDocGraphqlProviderServiceInfo> providerList, RegistryState registryState) {
+        // 供实现类重写
+    }
 
     /**
      * 构建完成Schema时调用
@@ -47,7 +53,9 @@ public abstract class ExecutionMonitor extends SimpleInstrumentation {
      * @param registryState 构建好的RegistryState
      * @param graphQL       当前构建好的graphQL实例
      */
-    public abstract void onSchemaBuild(RegistryState registryState, GraphQL graphQL);
+    public void onSchemaBuild(RegistryState registryState, GraphQL graphQL) {
+        // 供实现类重写
+    }
 
     /**
      * 执行请求之前被调用
@@ -55,7 +63,9 @@ public abstract class ExecutionMonitor extends SimpleInstrumentation {
      * @param executionInput 当前执行输入
      * @param webRequest     网页请求数据
      */
-    public abstract void beforeInvocation(ExecutionInput executionInput, WebRequest webRequest);
+    public void beforeInvocation(ExecutionInput executionInput, WebRequest webRequest) {
+        // 供实现类重写
+    }
 
     /**
      * 执行请求之后被调用
@@ -64,5 +74,7 @@ public abstract class ExecutionMonitor extends SimpleInstrumentation {
      * @param invocationData 执行数据
      * @param webRequest     网页请求数据
      */
-    public abstract void afterInvocation(UserExecutionContext userContext, GraphQLInvocationData invocationData, WebRequest webRequest);
+    public void afterInvocation(UserExecutionContext userContext, GraphQLInvocationData invocationData, WebRequest webRequest) {
+        // 供实现类重写
+    }
 }

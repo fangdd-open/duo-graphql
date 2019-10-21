@@ -37,5 +37,7 @@ public abstract class BaseGraphqlDirectiveFactory {
      * @param args        参数
      * @return 返回处理后的结果
      */
-    public abstract Object process(DataFetchingEnvironment environment, Object data, Map<String, Object> args);
+    public Object process(DataFetchingEnvironment environment, Object data, Map<String, Object> args) {
+        return data;
+    }
 }

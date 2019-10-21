@@ -16,12 +16,15 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * @chapter 资讯模块
+ * @section 文章
  *
  * @author xuwenzhen
  * @date 2019/10/12
  */
 @RestController
-@GraphqlModule("article") //可选，声明当前的领域，如果与配置中的graphql.schema.module值一致，则可以省略，一个GraphQL Provider允许实现多个领域，这也是为了在项目之初某些领域比较小时，先寄放在其它项目里面，可选
+@GraphqlModule("article")
+//可选，声明当前的领域，如果与配置中的graphql.schema.module值一致，则可以省略，一个GraphQL Provider允许实现多个领域，这也是为了在项目之初某些领域比较小时，先寄放在其它项目里面，可选
 @RequestMapping("/api/article")
 @SchemaProvider(clazz = Article.class, ids = {"articleId", "wzId"}) //声明为标准视图，并向外注册了这两个外键
 public class ArticleController {
@@ -87,9 +90,10 @@ public class ArticleController {
 
     /**
      * 删除文章
+     *
      * @param id 文章ID
      */
-    @DeleteMapping ("/{id:\\d+}") //非Get方法，会生成到GraphQL Schema的Mutation内，如果有需要写操作后也可以返回需要的字段
+    @DeleteMapping("/{id:\\d+}") //非Get方法，会生成到GraphQL Schema的Mutation内，如果有需要写操作后也可以返回需要的字段
     public Article articleDelete(@PathVariable int id) {
         return articleService.delete(id, SelectionHandler.getSelections());
     }

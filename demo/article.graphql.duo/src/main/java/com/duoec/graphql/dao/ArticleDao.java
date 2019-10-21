@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * 模拟数据库、ES操作，这里把数据写入redis中
@@ -28,13 +31,12 @@ public class ArticleDao {
      */
     @PostConstruct
     public void initArticleData() {
-        Random random = new Random();
-
         for (int i = 0; i < ARTICLE_SIZE; i++) {
             Article article = new Article();
-            article.setId(i + 1);
-            article.setTitle("文章标题" + random.nextInt());
-            article.setContent("文章内容：" + random.nextInt());
+            int id = i + 1;
+            article.setId(id);
+            article.setTitle("文章标题" + id);
+            article.setContent("文章内容：" + id);
             ARTICLE_LIST.add(article);
         }
     }
@@ -47,10 +49,8 @@ public class ArticleDao {
      * @return 文章基本信息
      */
     public Article getById(int articleId, List<String> selections) {
-        if (articleId > ARTICLE_SIZE - 1) {
-            return null;
-        }
-        return ARTICLE_LIST.get(articleId - 1);
+        Optional<Article> articleOpt = ARTICLE_LIST.stream().filter(article -> article.getId().equals(articleId)).findFirst();
+        return articleOpt.isPresent() ? articleOpt.get() : null;
     }
 
     public List<Article> getByIds(Set<Integer> articleIds, List<String> selections) {
@@ -73,10 +73,7 @@ public class ArticleDao {
         String keyword = query.getKeyword();
 
         for (Article article : ARTICLE_LIST) {
-            boolean match = false;
-            if (!StringUtils.isEmpty(keyword)) {
-                match = article.getTitle().contains(keyword);
-            }
+            boolean match = StringUtils.isEmpty(keyword) || article.getTitle().contains(keyword);
 
             if (match) {
                 total++;
