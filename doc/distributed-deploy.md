@@ -1,6 +1,6 @@
 # 分布式部署
 
-Duo-GraphQL实现了GraphQL-Engine和GraphQL-Provider的分布式部署，所以在各个节点的状态需要实现同步。Duo-GraphQL使用了redis订阅/发布的方式实现了状态的同步，详见：《[订阅：Subscription](./subscrription.md)》
+Duo-GraphQL实现了GraphQL-Engine和GraphQL-Provider的分布式部署，所以在各个节点的状态需要实现同步。Duo-GraphQL使用了redis订阅/发布的方式实现了状态的同步，详见：《[订阅：Subscription](./subscription.md)》
 
 
 

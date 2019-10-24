@@ -18,17 +18,13 @@ Duo-GraphQL实现了以下功能：
 
 4. 实现三大类DataProvider：`innerProvider` / remoteProvider / tpdocProvider，分别对应常用的固定少变的基础领域服务、复杂多变的业务领域服务和旧的RESTful领域服务接入。
 
-5. 做了大量性能优化，任务编排，请求合并等工作，最大限度的提高性能。最新统计近7天的服务SLA:100%，响应95线:20.3ms，99.9线:65.3ms。
+5. 做了大量性能优化，任务编排，请求合并等工作，最大限度的提高性能。
 
 6. 自定义指令支持，只需要实现接口`com.fangdd.graphql.directive.BaseGraphqlDirectiveFactory`，不需要直接面对GraphQL规则。
 
 7. 一个GraphQL Provider工程支持多个领域。本功能用于领域过小，还不需要单独一个项目时使用。另外支持向其它领域服务注入字段。比如在文章领域向用户领域注入userArticles字段等。
 
-      
-
-感谢graphql-java项目，写得真不错，得以在后续的扩展中得以实现
-
-
+    
 
 ## <span style="color: #FF9900">※ Duo-GraphQL架构</span>
 
