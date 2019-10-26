@@ -48,7 +48,11 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 
 以上getting start里的代码，请查看当前项目的目录 [/demo](./demo)
 
+你也可以直接使用GraphQL客户端请求：`http://demo.duoec.com/graphql`
 
+```bash
+curl 'http://demo.duoec.com/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'client: M' --data-binary '{"query":"{\n  article {\n    articleSearch(query: { keyword: \"1\", pageNo: 1, pageSize: 10 }) {\n      list {\n        id\n        title\n        content\n      }\n      total\n    }\n  }\n}\n","variables":{}}' --compressed
+```
 
 
 
