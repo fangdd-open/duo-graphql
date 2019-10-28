@@ -27,7 +27,7 @@
 
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${logging.path}/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${logging.path:./logs}/log.%d{yyyy-MM-dd}.log</fileNamePattern>
                 <maxHistory>7</maxHistory>
             </rollingPolicy>
 
@@ -38,7 +38,7 @@
 
         <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${logging.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${logging.path:./logs}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
 
                 <maxHistory>7</maxHistory>
             </rollingPolicy>

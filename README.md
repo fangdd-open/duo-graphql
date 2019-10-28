@@ -51,7 +51,14 @@ GraphQL Provider：《[GraphQL-Provider-Getting-Start](./doc/GraphQL-Provider-Ge
 你也可以直接使用GraphQL客户端请求：`http://demo.duoec.com/graphql`
 
 ```bash
-curl 'http://demo.duoec.com/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'client: M' --data-binary '{"query":"{\n  article {\n    articleSearch(query: { keyword: \"1\", pageNo: 1, pageSize: 10 }) {\n      list {\n        id\n        title\n        content\n      }\n      total\n    }\n  }\n}\n","variables":{}}' --compressed
+curl 'http://demo.duoec.com/graphql' \
+-H 'Accept-Encoding: gzip, deflate, br' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Connection: keep-alive' \
+-H 'client: M' \
+--data-binary '{"query":"{\n  article {\n    articleSearch(query: { keyword: \"1\", pageNo: 1, pageSize: 10 }) {\n      list {\n        id\n        title\n        content\n      }\n      total\n    }\n  }\n}\n","variables":{}}' \
+--compressed
 ```
 
 
@@ -60,33 +67,34 @@ curl 'http://demo.duoec.com/graphql' -H 'Accept-Encoding: gzip, deflate, br' -H 
 
 ### 一、引擎端: GraphQL-Engine
 
-1. [请求头透传](./doc/header.md)
-2. [添加监控](./doc/monitor.md)
-3. [自定义请求上下文](./doc/execute-context.md)
-4. [自定义指令: Directive](./doc/directive.md)
-5. [订阅: Subscription](./doc/subscription.md)
-6. [ScalarJson](./doc/scalar-json.md)
-7. [分布式部署](./doc/distributed-deploy.md)
-8. Schema构建
-9. 异常处理
-10. GraphLQ Provider
+1. [Duo-GraphQL是如何工作的？](./doc/how-it-work.md)
+2. [请求头透传](./doc/header.md)
+3. [添加监控](./doc/monitor.md)
+4. [自定义请求上下文](./doc/execute-context.md)
+5. [自定义指令: Directive](./doc/directive.md)
+6. [订阅: Subscription](./doc/subscription.md)
+7. [ScalarJson](./doc/scalar-json.md)
+8. [分布式部署](./doc/distributed-deploy.md)
+9. [Schema构建](./doc/schema-build.md)
+10. 异常处理
+11. GraphLQ Provider
     1. 远端数据供应端: RemoteProvider
     2. 内部数据供应端: InnerProvider
     3. 旧RESTful接口接入
-11. 合并请求
-12. 多GraphQL Schema实现
-13. GraphQL Engine调试
-14. 注册中心
+12. 合并请求
+13. 多GraphQL Schema实现
+14. GraphQL Engine调试
+15. 注册中心
     1. 使用Zookeeper注册中心
     2. 使用Redis注册中心
-15. 依赖Duo-Doc服务
-16. 权限控制
-17. gql查询缓存
-18. 开发期间设置GraphQL Provider请求地址
-19. Redis配置
-20. Mock & GraphiQL
-21. Mesh Service支持
-22. SkyWalking探针
+16. 依赖Duo-Doc服务
+17. 权限控制
+18. gql查询缓存
+19. 开发期间设置GraphQL Provider请求地址
+20. Redis配置
+21. Mock & GraphiQL
+22. Mesh Service支持
+23. SkyWalking探针
 
 
 
