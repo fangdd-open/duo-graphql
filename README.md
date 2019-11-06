@@ -30,8 +30,6 @@ Duo-GraphQL实现了以下功能：
 
 ![Duo-GraphQL框架图](https://oss-public.fangdd.com/prod/static/FhIP4N6EHp4M4NE3VRzB-tzSIUvl.png)
 
-（上面图片地址：https://oss-public.fangdd.com/prod/static/FhIP4N6EHp4M4NE3VRzB-tzSIUvl.png）
-
 
 
 ## <span style="color: #FF9900">※ Getting Start</span>
@@ -76,7 +74,7 @@ curl 'http://demo.duoec.com/graphql' \
 7. [ScalarJson](./doc/scalar-json.md)
 8. [分布式部署](./doc/distributed-deploy.md)
 9. [Schema构建](./doc/schema-build.md)
-10. 异常处理
+10. [异常处理](./doc/exceptions.md)
 11. GraphLQ Provider
     1. 远端数据供应端: RemoteProvider
     2. 内部数据供应端: InnerProvider
@@ -117,3 +115,6 @@ curl 'http://demo.duoec.com/graphql' \
 
 
 
+如有疑问，可以直接提issues或联系上作者：
+
+QQ：49566487 （注明GraphQL）

@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>graphql-provider-remote</artifactId>
-    <description>房多多GraphQL数据供应商基类</description>
+    <description>房多多GraphQL数据供应端基类</description>
 
     <dependencies>
         <dependency>
