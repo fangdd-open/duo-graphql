@@ -68,7 +68,6 @@
             <version>${duo-graphql.version}</version>
         </dependency>
 
-
         <!-- 测试包 -->
         <dependency>
             <groupId>junit</groupId>

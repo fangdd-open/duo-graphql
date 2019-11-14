@@ -114,7 +114,3 @@ curl 'http://demo.duoec.com/graphql' \
 9. GraphQL Provider服务调试
 
 
-
-如有疑问，可以直接提issues或联系上作者：
-
-QQ：49566487 （注明GraphQL）
