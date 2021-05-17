@@ -1,5 +1,7 @@
 # Duo-GraphQL
 
+# 本工程已经迁移，为了提供更好的服务，请移步新的仓库！ https://gitee.com/duoec/duo-graphql
+
 ## <span style="color: #FF9900">※ Duo-GraphQL介绍</span>
 
 Duo-GraphQL基于[graphql-java](https://github.com/graphql-java/graphql-java)引擎实现，对Schema构建、DataFetch绑定、任务编排优化做了自动化实现，让开发者专注于领域功能开发，与当前主流的多团队的微服务敏捷开发模式无缝契合。
