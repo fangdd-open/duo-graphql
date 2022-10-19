@@ -29,7 +29,7 @@
         <graphql-java.version>13.0</graphql-java.version>
         <jedis.version>2.9.0</jedis.version>
         <duo-graphql.version>1.4.5-SNAPSHOT</duo-graphql.version>
-        <jackson-databind.version>2.9.10.7</jackson-databind.version>
+        <jackson-databind.version>2.13.4.1</jackson-databind.version>
 
         <!--
         当前服务的ID，必须与当前项目的配置：spring.application.name一致
